@@ -10,9 +10,9 @@ Webstránky pre lokálne firmy — Prešov & okolie.
  
 | Typ firmy | Link |
 |-----------|------|
-| Kaviareň | [cafe.html](cafe.html) |
-| Autoservis | [autoservis.html](autoservis.html) |
-| Kaderníctvo | [salon.html](salon.html) |
+| Kaviareň | [cafe.html](https://ns-cehelsky.github.io/ns-web/cafe.html) |
+| Autoservis | [autoservis.html](https://ns-cehelsky.github.io/ns-web/autoservis.html) |
+| Kaderníctvo | [salon.html](https://ns-cehelsky.github.io/ns-web/salon.html) |
  
 ---
  
@@ -20,3 +20,4 @@ Webstránky pre lokálne firmy — Prešov & okolie.
  
 - Email: ns.cehelsky@gmail.com  
 - GitHub: [github.com/NS-Cehelsky](https://github.com/NS-Cehelsky)
+ 
