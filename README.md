@@ -10,9 +10,9 @@ Webstránky pre lokálne firmy — Prešov & okolie.
  
 | Typ firmy | Link |
 |-----------|------|
-| Kaviareň | [kaviarena.html](kaviarena.html) |
+| Kaviareň | [cafe.html](cafe.html) |
 | Autoservis | [autoservis.html](autoservis.html) |
-| Kaderníctvo | [kaderniktvo.html](kaderniktvo.html) |
+| Kaderníctvo | [salon.html](salon.html) |
  
 ---
  
