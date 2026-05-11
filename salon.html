@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Elise — Kaderníctvo & Beauty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:    #faf7f4;
+  --fg:    #1e1916;
+  --blush: #c4856a;
+  --dblush:#9e6550;
+  --muted: #7a6d65;
+  --subtle:#ddd5cc;
+  --surf:  #f2ede7;
+  --pale:  #fdf5f0;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--fg); font-family: 'DM Sans', sans-serif; font-weight: 300; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(250,247,244,0.92); backdrop-filter: blur(14px);
+  border-bottom: 0.5px solid var(--subtle);
+}
+.logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 300; color: var(--fg); text-decoration: none; letter-spacing: .06em; }
+.logo em { font-style: italic; color: var(--blush); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: .73rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--fg); }
+.nav-book { background: var(--blush); color: #fff; padding: .55rem 1.3rem; border-radius: 100px; font-size: .78rem; font-weight: 500; text-decoration: none; transition: background .2s; }
+.nav-book:hover { background: var(--dblush); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  align-items: stretch; padding-top: 64px;
+}
+.hero-left {
+  padding: 5rem 3rem 4rem;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero-tag { font-size: .68rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--blush); margin-bottom: 1.5rem; display: flex; align-items: center; gap: .7rem; }
+.hero-tag::before { content: ''; width: 18px; height: 1px; background: var(--blush); display: inline-block; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 5vw, 4.2rem); font-weight: 300; line-height: 1.1; letter-spacing: .01em; margin-bottom: 1.4rem; }
+.hero h1 em { font-style: italic; }
+.hero-desc { font-size: .9rem; color: var(--muted); line-height: 1.85; max-width: 420px; margin-bottom: 2.2rem; }
+.hero-reviews { display: flex; align-items: center; gap: .85rem; margin-bottom: 2.2rem; }
+.stars { color: var(--blush); font-size: .9rem; letter-spacing: .05em; }
+.review-text { font-size: .78rem; color: var(--muted); }
+.review-text strong { color: var(--fg); font-weight: 500; }
+.cta-pair { display: flex; gap: .75rem; flex-wrap: wrap; }
+.btn-blush { display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.8rem; background: var(--blush); color: #fff; border-radius: 100px; text-decoration: none; font-size: .82rem; font-weight: 500; transition: background .2s; }
+.btn-blush:hover { background: var(--dblush); }
+.btn-outline { display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.8rem; border: 0.5px solid var(--subtle); border-radius: 100px; color: var(--muted); text-decoration: none; font-size: .82rem; transition: border-color .2s, color .2s; }
+.btn-outline:hover { border-color: var(--fg); color: var(--fg); }
+.hero-right {
+  background: linear-gradient(160deg, #e8c8b8 0%, #c4856a 45%, #8a4a32 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  padding: 2.5rem; position: relative; overflow: hidden; min-height: 70vh;
+}
+.hero-right::before { content: ''; position: absolute; top: 15%; left: -10%; width: 120%; height: 120%; background: radial-gradient(ellipse 70% 60% at 60% 30%, rgba(255,230,210,0.2) 0%, transparent 60%); }
+.big-letter { font-family: 'Playfair Display', serif; font-size: 18rem; font-weight: 300; font-style: italic; color: rgba(255,255,255,0.06); position: absolute; top: -2rem; right: -1rem; line-height: 1; pointer-events: none; }
+.hero-badge { background: rgba(255,255,255,.15); backdrop-filter: blur(10px); border: 0.5px solid rgba(255,255,255,.25); border-radius: 14px; padding: 1.2rem 1.6rem; position: relative; }
+.badge-stars { color: rgba(255,255,255,.8); font-size: .9rem; margin-bottom: .3rem; }
+.badge-text { font-family: 'Playfair Display', serif; font-size: .95rem; font-style: italic; color: rgba(255,255,255,.85); }
+.badge-sub { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-top: .3rem; }
+
+/* SECTION */
+.section { padding: 5rem 3rem; }
+.sec-label { font-size: .66rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--blush); margin-bottom: .7rem; }
+.sec-title { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 300; line-height: 1.2; margin-bottom: 2.5rem; }
+.sec-title em { font-style: italic; }
+
+/* SERVICES */
+.services-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--subtle); border: 0.5px solid var(--subtle); }
+.svc { background: var(--bg); padding: 2rem 1.75rem; transition: background .2s; }
+.svc:hover { background: var(--pale); }
+.svc-num { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; font-weight: 300; color: var(--blush); margin-bottom: .75rem; }
+.svc h3 { font-size: .9rem; font-weight: 500; margin-bottom: .4rem; }
+.svc p { font-size: .78rem; color: var(--muted); line-height: 1.6; }
+.svc-from { margin-top: .75rem; font-size: .78rem; font-weight: 500; color: var(--blush); }
+
+/* TEAM */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+.team-card { }
+.team-photo { height: 260px; border-radius: 12px; display: flex; align-items: flex-end; padding: 1.25rem; margin-bottom: 1rem; position: relative; overflow: hidden; }
+.tp1 { background: linear-gradient(160deg, #e8ccc0 0%, #c4956a 100%); }
+.tp2 { background: linear-gradient(160deg, #d4c8e0 0%, #9a7ab0 100%); }
+.tp3 { background: linear-gradient(160deg, #c8dcd4 0%, #6a9c88 100%); }
+.team-photo-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.9); position: relative; }
+.team-card h3 { font-size: .9rem; font-weight: 500; margin-bottom: .2rem; }
+.team-card .role { font-size: .75rem; color: var(--blush); margin-bottom: .4rem; }
+.team-card .bio { font-size: .78rem; color: var(--muted); line-height: 1.55; }
+
+/* CENNIK */
+.price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--subtle); border: 0.5px solid var(--subtle); }
+.price-cat { background: var(--bg); padding: 2rem; }
+.price-cat h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; font-weight: 300; color: var(--blush); margin-bottom: 1rem; border-bottom: 0.5px solid var(--subtle); padding-bottom: .75rem; }
+.price-rows { display: flex; flex-direction: column; gap: .6rem; }
+.price-row { display: flex; justify-content: space-between; align-items: baseline; font-size: .82rem; }
+.pr-name { color: var(--fg); }
+.pr-time { font-size: .7rem; color: var(--muted); }
+.pr-price { font-weight: 500; color: var(--fg); }
+
+/* BOOKING */
+.booking-wrap { background: var(--surf); border: 0.5px solid var(--subtle); padding: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.booking-left h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 300; margin-bottom: .75rem; }
+.booking-left h2 em { font-style: italic; color: var(--blush); }
+.booking-left p { font-size: .88rem; color: var(--muted); line-height: 1.75; }
+.booking-right { display: flex; flex-direction: column; gap: .6rem; }
+.booking-link { display: flex; align-items: center; justify-content: space-between; padding: .85rem 1.2rem; background: var(--bg); border: 0.5px solid var(--subtle); text-decoration: none; color: var(--fg); font-size: .82rem; transition: background .2s; }
+.booking-link:hover { background: var(--pale); }
+.bl-icon { font-size: .85rem; color: var(--blush); }
+
+/* FOOTER */
+footer { background: var(--fg); color: rgba(250,247,244,.4); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic; font-weight: 300; color: rgba(250,247,244,.8); }
+.footer-right { font-size: .72rem; }
+.footer-right a { color: var(--blush); text-decoration: none; }
+
+.demo-banner { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); background: var(--fg); color: rgba(250,247,244,.8); padding: .55rem 1.25rem; border-radius: 100px; font-size: .72rem; z-index: 999; white-space: nowrap; }
+.demo-banner a { color: var(--blush); text-decoration: none; font-weight: 500; }
+
+.fi { opacity: 0; transform: translateY(14px); transition: opacity .6s, transform .6s; }
+.fi.in { opacity: 1; transform: none; }
+
+@media (max-width: 700px) {
+  nav { padding: 1rem 1.4rem; } .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 5.5rem 1.4rem 3rem; }
+  .hero-right { min-height: 300px; }
+  .section { padding: 3.5rem 1.4rem; }
+  .booking-wrap { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: .5rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">Demo stránka · NS web · <a href="mailto:ns.cehelsky@gmail.com">Objednaj svoju →</a></div>
+
+<nav>
+  <a class="logo" href="#"><em>Studio</em> Elise</a>
+  <ul class="nav-links">
+    <li><a href="#sluzby">Služby</a></li>
+    <li><a href="#tym">Tím</a></li>
+    <li><a href="#cennik">Cenník</a></li>
+    <li><a href="#rezervacia">Rezervácia</a></li>
+  </ul>
+  <a href="#rezervacia" class="nav-book">Rezervovať →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Kaderníctvo & Beauty · Prešov</div>
+    <h1>Kde sa cítite<br><em>krásne</em><br>vo vlastnej koži</h1>
+    <p class="hero-desc">Vitajte v Studio Elise — priestore, kde sa staráme nielen o váš vzhľad, ale aj o váš dobrý pocit. Každá návšteva je zážitok.</p>
+    <div class="hero-reviews">
+      <div class="stars" style="display:flex;gap:2px;color:var(--blush)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <div class="review-text"><strong>4.9/5</strong> · 230+ hodnotení</div>
+    </div>
+    <div class="cta-pair">
+      <a href="#rezervacia" class="btn-blush">Rezervovať termín →</a>
+      <a href="#sluzby" class="btn-outline">Naše služby</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="big-letter">E</div>
+    <div class="hero-badge">
+      <div class="badge-stars" style="display:flex;gap:2px;color:rgba(255,255,255,.8)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <div class="badge-text">"Najlepší salón v Prešove"</div>
+      <div class="badge-sub">Google recenzie · 2025</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sluzby">
+  <div class="fi"><div class="sec-label">Čo ponúkame</div><h2 class="sec-title">Naše <em>služby</em></h2></div>
+  <div class="services-wrap fi">
+    <div class="svc">
+      <div class="svc-num">01</div>
+      <h3>Strihanie & styling</h3>
+      <p>Dámske, pánske aj detské strihanie. Foukaná, styling na každú príležitosť.</p>
+      <div class="svc-from">od 18 €</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">02</div>
+      <h3>Farbenie vlasov</h3>
+      <p>Celkové farbenie, melírovanie, balayage, ombre. Prémiové farby L'Oréal a Wella.</p>
+      <div class="svc-from">od 40 €</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">03</div>
+      <h3>Keratínová kúra</h3>
+      <p>Keratínové vyhladzovanie, brazílsky keratin, obnova poškodených vlasov.</p>
+      <div class="svc-from">od 80 €</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">04</div>
+      <h3>Nechty & Manikúra</h3>
+      <p>Klasická manikúra, gelové nechty, nail art. Starostlivosť o ruky a nechty.</p>
+      <div class="svc-from">od 22 €</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">05</div>
+      <h3>Obočie & riasy</h3>
+      <p>Laminovanie obočia, laminovanie rias, threading, farbenie.</p>
+      <div class="svc-from">od 15 €</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">06</div>
+      <h3>Regenerácia</h3>
+      <p>Vlasové masky, ozone terapia, Botox pre vlasy. Viditeľný výsledok po prvom ošetrení.</p>
+      <div class="svc-from">od 35 €</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tym" style="background: var(--surf);">
+  <div class="fi"><div class="sec-label">Náš tím</div><h2 class="sec-title"><em>Ľudia</em> za vašim lookom</h2></div>
+  <div class="team-grid fi">
+    <div class="team-card">
+      <div class="team-photo tp1"><div class="team-photo-name">Elise</div></div>
+      <h3>Elise Kováčová</h3>
+      <div class="role">Majiteľka & senior stylistka</div>
+      <p class="bio">12 rokov skúseností, špecialistka na farbenie a keratínové ošetrenia. Vyštudovaná v Prahe a Viedni.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-photo tp2"><div class="team-photo-name">Lucia</div></div>
+      <h3>Lucia Holubová</h3>
+      <div class="role">Coloristka</div>
+      <p class="bio">Špecialistka na balayage a moderné techniky farbenia. Absolventka kurzu Wella Academy.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-photo tp3"><div class="team-photo-name">Monika</div></div>
+      <h3>Monika Šimčíková</h3>
+      <div class="role">Nechtová technicka & lash artistka</div>
+      <p class="bio">Gelové nechty, nail art a laminovanie rias. 6 rokov praxe, certifikovaná od Nails Academy.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cennik">
+  <div class="fi"><div class="sec-label">Orientačné ceny</div><h2 class="sec-title"><em>Cenník</em></h2></div>
+  <div class="price-grid fi">
+    <div class="price-cat">
+      <h3>Strihanie & styling</h3>
+      <div class="price-rows">
+        <div class="price-row"><span><span class="pr-name">Dámsky strih</span><br><span class="pr-time">45 min</span></span><span class="pr-price">18–28 €</span></div>
+        <div class="price-row"><span><span class="pr-name">Pánsky strih</span><br><span class="pr-time">30 min</span></span><span class="pr-price">12–16 €</span></div>
+        <div class="price-row"><span><span class="pr-name">Detský strih</span><br><span class="pr-time">25 min</span></span><span class="pr-price">10 €</span></div>
+        <div class="price-row"><span><span class="pr-name">Foukaná + styling</span><br><span class="pr-time">40 min</span></span><span class="pr-price">18–25 €</span></div>
+      </div>
+    </div>
+    <div class="price-cat">
+      <h3>Farbenie</h3>
+      <div class="price-rows">
+        <div class="price-row"><span><span class="pr-name">Celkové farbenie</span><br><span class="pr-time">90 min</span></span><span class="pr-price">od 40 €</span></div>
+        <div class="price-row"><span><span class="pr-name">Balayage / Ombre</span><br><span class="pr-time">2–3 hod</span></span><span class="pr-price">od 80 €</span></div>
+        <div class="price-row"><span><span class="pr-name">Melírovanie</span><br><span class="pr-time">90 min</span></span><span class="pr-price">od 55 €</span></div>
+        <div class="price-row"><span><span class="pr-name">Keratínový Botox</span><br><span class="pr-time">2 hod</span></span><span class="pr-price">od 80 €</span></div>
+      </div>
+    </div>
+    <div class="price-cat">
+      <h3>Nechty & Beauty</h3>
+      <div class="price-rows">
+        <div class="price-row"><span><span class="pr-name">Gelové predĺženie</span><br><span class="pr-time">90 min</span></span><span class="pr-price">od 35 €</span></div>
+        <div class="price-row"><span><span class="pr-name">Gel lak (manikúra)</span><br><span class="pr-time">60 min</span></span><span class="pr-price">od 22 €</span></div>
+        <div class="price-row"><span><span class="pr-name">Laminovanie obočia</span><br><span class="pr-time">45 min</span></span><span class="pr-price">od 20 €</span></div>
+        <div class="price-row"><span><span class="pr-name">Laminovanie rias</span><br><span class="pr-time">60 min</span></span><span class="pr-price">od 30 €</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="rezervacia">
+  <div class="booking-wrap fi">
+    <div class="booking-left">
+      <h2>Rezervujte si<br><em>termín</em></h2>
+      <p>Objednajte sa online, cez Instagram alebo zavolajte. Odpíšeme do hodiny. Prvý termín vždy do 3 dní.</p>
+    </div>
+    <div class="booking-right">
+      <a href="tel:0910000000" class="booking-link">
+        <span style="display:flex;align-items:center;gap:.5rem"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.9 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 0910 000 000</span>
+        <span class="bl-icon">→</span>
+      </a>
+      <a href="mailto:studio@elise.sk" class="booking-link">
+        <span style="display:flex;align-items:center;gap:.5rem"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> studio@elise.sk</span>
+        <span class="bl-icon">→</span>
+      </a>
+      <a href="#" class="booking-link">
+        <span style="display:flex;align-items:center;gap:.5rem"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg> @studioelise.presov</span>
+        <span class="bl-icon">→</span>
+      </a>
+      <a href="#" class="booking-link" style="background: var(--blush); color: #fff; border-color: var(--blush);">
+        <span>Rezervovať online →</span>
+        <span class="bl-icon" style="color:#fff">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Studio Elise</div>
+  <div class="footer-right">© 2026 Studio Elise · Web: <a href="mailto:ns.cehelsky@gmail.com">NS web</a></div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}}),{threshold:0.08});
+document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

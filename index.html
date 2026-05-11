@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NS web — Webstránky pre lokálne firmy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #f6f4ef;
+  --fg:      #1c1c1a;
+  --muted:   #6a6a64;
+  --subtle:  #c8c6bc;
+  --surface: #eceae4;
+  --ink:     #2a2a27;
+  --green:   #3a5c3a;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 3rem;
+  background: rgba(246,244,239,0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 0.5px solid var(--subtle);
+}
+.logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem; font-weight: 300;
+  color: var(--fg); text-decoration: none;
+}
+.logo em { font-style: italic; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: .75rem; font-weight: 400;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--fg); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 9rem 3rem 4.5rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 55% 45% at 85% 15%, rgba(90,130,90,0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 55% at 5% 85%,  rgba(160,145,90,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: .72rem; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: .8rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: inline-block;
+  width: 22px; height: 1px; background: var(--subtle);
+}
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
+  font-weight: 300; line-height: 1.06;
+  letter-spacing: -.025em;
+  margin-bottom: 2rem; max-width: 760px;
+}
+.hero h1 em { font-style: italic; color: var(--muted); }
+.hero-desc {
+  font-size: .95rem; color: var(--muted);
+  max-width: 460px; line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+.hero-sig {
+  font-size: .8rem; color: var(--muted);
+  display: flex; align-items: center; gap: .6rem;
+  margin-bottom: 2.5rem;
+}
+.hero-sig::before {
+  content: ''; display: inline-block;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--subtle);
+}
+.cta-row { display: flex; gap: .75rem; flex-wrap: wrap; }
+.btn-dark {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .7rem 1.6rem;
+  background: var(--fg); color: var(--bg);
+  border-radius: 100px; text-decoration: none;
+  font-size: .82rem; font-weight: 500;
+  transition: opacity .2s;
+}
+.btn-dark:hover { opacity: .78; }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .7rem 1.6rem;
+  border: 0.5px solid var(--subtle); border-radius: 100px;
+  text-decoration: none; font-size: .82rem; color: var(--muted);
+  transition: border-color .2s, color .2s;
+}
+.btn-outline:hover { border-color: var(--ink); color: var(--fg); }
+.scroll-tag {
+  position: absolute; bottom: 2.5rem; right: 3rem;
+  font-size: .65rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--subtle); writing-mode: vertical-rl;
+  display: flex; align-items: center; gap: .5rem;
+}
+.scroll-tag::after {
+  content: ''; display: block;
+  width: 1px; height: 36px; background: var(--subtle);
+}
+
+/* ── SHARED SECTION ── */
+.section { padding: 5rem 3rem; }
+.section-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  border-bottom: 0.5px solid var(--subtle);
+  padding-bottom: .9rem; margin-bottom: 3rem;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.65rem; font-weight: 300;
+}
+.section-n { font-size: .72rem; letter-spacing: .1em; color: var(--subtle); }
+
+/* ── ABOUT ── */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+}
+.about-body p { font-size: .95rem; color: var(--muted); line-height: 1.8; }
+.about-body p + p { margin-top: 1rem; }
+.about-body strong { color: var(--fg); font-weight: 500; }
+.about-stats { display: flex; flex-direction: column; gap: .75rem; }
+.stat-row {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: .85rem 1.1rem;
+  border: 0.5px solid var(--subtle);
+  font-size: .85rem;
+}
+.stat-label { color: var(--muted); }
+.stat-val { font-weight: 500; }
+
+/* ── SERVICES ── */
+.services-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  background: var(--subtle); gap: 0.5px; border: 0.5px solid var(--subtle);
+}
+.svc {
+  background: var(--bg); padding: 2rem 1.75rem;
+  transition: background .2s;
+}
+.svc:hover { background: var(--surface); }
+.svc-glyph {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem; font-style: italic;
+  color: var(--subtle); margin-bottom: .9rem;
+}
+.svc h3 { font-size: .9rem; font-weight: 500; margin-bottom: .4rem; }
+.svc p  { font-size: .8rem; color: var(--muted); line-height: 1.6; }
+
+/* ── PROJECTS ── */
+.projects-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 0.5px; background: var(--subtle); border: 0.5px solid var(--subtle);
+}
+.proj {
+  background: var(--bg); display: block;
+  text-decoration: none; color: inherit;
+  transition: background .2s;
+}
+.proj:hover { background: var(--surface); }
+.proj-thumb {
+  height: 180px; display: flex; align-items: center; justify-content: center;
+  border-bottom: 0.5px solid var(--subtle); overflow: hidden;
+  font-family: 'Fraunces', serif; font-size: 2.5rem;
+  font-weight: 300; font-style: italic;
+  color: rgba(0,0,0,.1); letter-spacing: -.02em;
+  transition: transform .35s;
+}
+.proj:hover .proj-thumb-inner { transform: scale(1.04); }
+.proj-thumb-inner { transition: transform .35s; }
+.bg1 { background: linear-gradient(135deg,#e4ede4,#cfe0cf); }
+.bg2 { background: linear-gradient(135deg,#e6e2d4,#f0ebd6); }
+.bg3 { background: linear-gradient(135deg,#d6e2e8,#d4daf0); }
+.bg4 { background: linear-gradient(135deg,#ecdde6,#e8d4df); }
+.bg5 { background: linear-gradient(135deg,#e4e8d6,#d8e4c8); }
+.bg6 { background: linear-gradient(135deg,#e8ddd4,#ede6dc); }
+.proj-info { padding: 1.1rem 1.4rem; }
+.proj-tag {
+  font-size: .63rem; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: .35rem;
+}
+.proj-info h3 { font-size: .9rem; font-weight: 500; margin-bottom: .2rem; }
+.proj-info p  { font-size: .78rem; color: var(--muted); }
+.proj-footer-note {
+  margin-top: 1.25rem; font-size: .75rem;
+  color: var(--subtle); font-style: italic;
+}
+
+/* ── PROCESS ── */
+.process-list { display: flex; flex-direction: column; }
+.proc-step {
+  display: grid; grid-template-columns: 2.5rem 1fr;
+  gap: 1.5rem; padding: 1.4rem 0;
+  border-bottom: 0.5px solid var(--subtle); align-items: start;
+}
+.proc-step:last-child { border-bottom: none; }
+.proc-n {
+  font-family: 'Fraunces', serif;
+  font-size: .9rem; font-weight: 300; font-style: italic;
+  color: var(--subtle); padding-top: .1rem;
+}
+.proc-body h4 { font-size: .9rem; font-weight: 500; margin-bottom: .3rem; }
+.proc-body p  { font-size: .82rem; color: var(--muted); line-height: 1.65; }
+
+/* ── PRICING ── */
+.pricing-wrap {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3rem; align-items: start;
+  border: 0.5px solid var(--subtle); padding: 2.5rem;
+}
+.price-big {
+  font-family: 'Fraunces', serif;
+  font-size: 4rem; font-weight: 300;
+  line-height: 1; margin-bottom: .4rem;
+}
+.price-note { font-size: .8rem; color: var(--muted); line-height: 1.65; }
+.includes { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+.includes li {
+  font-size: .82rem; display: flex;
+  align-items: baseline; gap: .55rem;
+}
+.includes li::before {
+  content: '↳'; color: var(--muted);
+  font-size: .72rem; flex-shrink: 0;
+}
+.includes li strong { font-weight: 500; }
+
+/* ── CONTACT ── */
+#contact {
+  background: var(--fg); color: var(--bg);
+}
+#contact .section-title { color: var(--bg); }
+#contact .section-n    { color: rgba(246,244,239,.3); }
+#contact .section-header { border-color: rgba(246,244,239,.15); }
+.contact-wrap {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: start;
+}
+.contact-hl {
+  font-family: 'Fraunces', serif;
+  font-size: 2.4rem; font-weight: 300;
+  line-height: 1.15; margin-bottom: .9rem;
+}
+.contact-hl em { font-style: italic; opacity: .5; }
+.contact-sub { font-size: .88rem; color: rgba(246,244,239,.5); line-height: 1.75; }
+.contact-links { display: flex; flex-direction: column; gap: .6rem; }
+.contact-link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .8rem 1.2rem;
+  border: 0.5px solid rgba(246,244,239,.18);
+  color: var(--bg); text-decoration: none;
+  font-size: .82rem; transition: background .2s;
+}
+.contact-link:hover { background: rgba(246,244,239,.07); }
+.contact-link .lbl { opacity: .4; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 1.4rem 3rem;
+  border-top: 0.5px solid var(--subtle);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: .72rem; color: var(--muted);
+}
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--fg); }
+
+/* ── FADE-IN ── */
+.fi { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+.fi.in { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  nav { padding: 1rem 1.4rem; }
+  .nav-links { display: none; }
+  .hero { padding: 6.5rem 1.4rem 3.5rem; }
+  .section { padding: 3.5rem 1.4rem; }
+  .about-grid    { grid-template-columns: 1fr; gap: 2.5rem; }
+  .pricing-wrap  { grid-template-columns: 1fr; gap: 2rem; }
+  .contact-wrap  { grid-template-columns: 1fr; gap: 2.5rem; }
+  footer { flex-direction: column; gap: .4rem; text-align: center; }
+  .scroll-tag { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">N<em>S</em> web</a>
+  <ul class="nav-links">
+    <li><a href="#o-mne">O mne</a></li>
+    <li><a href="#sluzby">Služby</a></li>
+    <li><a href="#projekty">Projekty</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Webstránky pre lokálne firmy · Prešov, SK</div>
+  <h1>Moderný web,<br>čo <em>privedie</em><br>zákazníkov</h1>
+  <p class="hero-desc">Som Nino — robím jednoduché, pekné webstránky pre kaviarne, obchody, autoservisy a ďalšie miestne firmy. Žiadna agentúra, len jeden človek, ktorému záleží na výsledku.</p>
+  <div class="hero-sig">Nino Cehelský &nbsp;·&nbsp; ns.cehelsky@gmail.com &nbsp;·&nbsp; Prešov, SK</div>
+  <div class="cta-row">
+    <a href="#contact" class="btn-dark">Napíšte mi →</a>
+    <a href="#projekty" class="btn-outline">Pozrieť práce</a>
+  </div>
+  <div class="scroll-tag">Scrollovať</div>
+</section>
+
+<!-- O MNE -->
+<section class="section" id="o-mne">
+  <div class="section-header fi">
+    <h2 class="section-title">O mne</h2>
+    <span class="section-n">01</span>
+  </div>
+  <div class="about-grid fi">
+    <div class="about-body">
+      <p>Volám sa <strong>Nino</strong> a studujem Počítačové siete na TUKE v Košiciach. Programovaniu sa venujem aktívne — robím weby, AI nástroje aj aplikácie.</p>
+      <p>Začal som ponúkať tvorbu webstránok pre miestne firmy, lebo vidím, koľko dobrých podnikov nemá žiadnu alebo len zastaranú stránku — a prichádzajú tým o zákazníkov, ktorí ich hľadajú na Googli.</p>
+      <p>Robím <strong>čisto, jednoducho a bez zbytočných komplikácií.</strong> Najskôr ukážem návrh — a až keď sa vám páči, ideme ďalej.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-row">
+        <span class="stat-label">Lokalita</span>
+        <span class="stat-val">Prešov, SK</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Štúdium</span>
+        <span class="stat-val">TUKE — Počítačové siete</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Technológie</span>
+        <span class="stat-val">HTML, CSS, JS, Python</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Termín odovzdania</span>
+        <span class="stat-val">cca 2 týždne</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">GitHub</span>
+        <span class="stat-val"><a href="https://github.com/NS-Cehelsky" target="_blank" style="color:var(--green);text-decoration:none">NS-Cehelsky ↗</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLUŽBY -->
+<section class="section" id="sluzby">
+  <div class="section-header fi">
+    <h2 class="section-title">Čo spravím</h2>
+    <span class="section-n">02</span>
+  </div>
+  <div class="services-grid fi">
+    <div class="svc">
+      <div class="svc-glyph"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></div>
+      <h3>Nová webstránka</h3>
+      <p>Pre firmy, ktoré ešte nemajú web. Čistý dizajn, rýchle načítanie, plná mobilná verzia.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-glyph"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg></div>
+      <h3>Redesign</h3>
+      <p>Stará alebo neprehľadná stránka? Prerobíme ju tak, aby zákazníci vedeli hneď, čo hľadajú.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-glyph"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <h3>Rýchlosť & SEO</h3>
+      <p>Pomalá stránka odháňa ľudí. Optimalizujem rýchlosť a viditeľnosť na Googli.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-glyph"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+      <h3>Obsah & texty</h3>
+      <p>Pomôžem aj so štruktúrou, textami a základným obsahom — nielen kódom.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJEKTY -->
+<section class="section" id="projekty">
+  <div class="section-header fi">
+    <h2 class="section-title">Projekty</h2>
+    <span class="section-n">03</span>
+  </div>
+  <div class="projects-grid fi">
+
+    <a href="https://ns-cehelsky.github.io/textlens/" target="_blank" class="proj">
+      <div class="proj-thumb bg1">
+        <div class="proj-thumb-inner">TextLens</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-tag">Web App · AI · Live</div>
+        <h3>TextLens</h3>
+        <p>AI analyzátor textu v prehliadači — súhrn, kľúčové slová, sentiment, poznámky. Načítava PDF a DOCX.</p>
+      </div>
+    </a>
+
+    <a href="https://github.com/NS-Cehelsky/geo-ecoprodukt" target="_blank" class="proj">
+      <div class="proj-thumb bg2">
+        <div class="proj-thumb-inner">GEO</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-tag">Python · AI · SEO</div>
+        <h3>GEO Skript — ECO PRODUKT</h3>
+        <p>Generuje GEO-optimalizované odpovede pre AI nástroje ako ChatGPT a Perplexity. Reálny projekt pre klienta.</p>
+      </div>
+    </a>
+
+    <a href="https://github.com/NS-Cehelsky/ai-chatbot-groq" target="_blank" class="proj">
+      <div class="proj-thumb bg3">
+        <div class="proj-thumb-inner">Chat</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-tag">Python · Groq API · AI</div>
+        <h3>AI Chatbot (SK)</h3>
+        <p>Funkčný AI chatbot komunikujúci po slovensky, poháňaný modelom Llama 3.3 70B cez Groq API.</p>
+      </div>
+    </a>
+
+    <a href="cafe.html" target="_blank" class="proj">
+      <div class="proj-thumb bg4" style="background: linear-gradient(135deg,#e8d5c0,#c9956a);">
+        <div class="proj-thumb-inner">Café</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-tag">Demo · Kaviareň · Web</div>
+        <h3>Mocha Café</h3>
+        <p>Demo web pre kaviareň — menu, o nás, otváracie hodiny, kontakt. Teplý, editoriálny štýl.</p>
+      </div>
+    </a>
+
+    <a href="autoservis.html" target="_blank" class="proj">
+      <div class="proj-thumb bg5" style="background: linear-gradient(135deg,#d0dae8,#1a3a5c);">
+        <div class="proj-thumb-inner" style="color:rgba(255,255,255,.15)">Auto</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-tag">Demo · Autoservis · Web</div>
+        <h3>AutoPro Servis</h3>
+        <p>Demo web pre autoservis — služby, cenník, kontakt, objednávky. Technický, dôveryhodný štýl.</p>
+      </div>
+    </a>
+
+    <a href="salon.html" target="_blank" class="proj">
+      <div class="proj-thumb bg6" style="background: linear-gradient(135deg,#f0ddd6,#c4856a);">
+        <div class="proj-thumb-inner">Beauty</div>
+      </div>
+      <div class="proj-info">
+        <div class="proj-tag">Demo · Kaderníctvo · Web</div>
+        <h3>Studio Elise</h3>
+        <p>Demo web pre beauty salón — tím, cenník, rezervácie. Elegantný, ženský štýl.</p>
+      </div>
+    </a>
+
+  </div>
+  <p class="proj-footer-note">* GEO Skript bol reálny projekt pre klienta. Ostatné sú vlastné projekty a školské práce.</p>
+</section>
+
+<!-- PROCES -->
+<section class="section" id="proces">
+  <div class="section-header fi">
+    <h2 class="section-title">Ako pracujem</h2>
+    <span class="section-n">04</span>
+  </div>
+  <div class="process-list fi">
+    <div class="proc-step">
+      <span class="proc-n">01</span>
+      <div class="proc-body">
+        <h4>Krátky hovor alebo správa</h4>
+        <p>Povediete mi, čo robíte a čo od stránky čakáte. 15–20 minút, bez záväzkov. Rád sa aj osobne zastavím.</p>
+      </div>
+    </div>
+    <div class="proc-step">
+      <span class="proc-n">02</span>
+      <div class="proc-body">
+        <h4>Návrh zadarmo</h4>
+        <p>Ukážem vám, ako by stránka mohla vyzerať — ešte pred tým, ako čokoľvek zaplatíte. Ak sa nepáči, nič sa nedeje.</p>
+      </div>
+    </div>
+    <div class="proc-step">
+      <span class="proc-n">03</span>
+      <div class="proc-body">
+        <h4>Tvoríme spolu</h4>
+        <p>Priebežne vám ukazujem postup a upravujem podľa vašich pripomienok. Žiadne prekvapenia na konci.</p>
+      </div>
+    </div>
+    <div class="proc-step">
+      <span class="proc-n">04</span>
+      <div class="proc-body">
+        <h4>Odovzdanie + podpora</h4>
+        <p>Web je váš. Prvý mesiac som k dispozícii na opravy a otázky zadarmo. Pomôžem aj s doménou a hostingom.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CENA -->
+<section class="section" id="cena">
+  <div class="section-header fi">
+    <h2 class="section-title">Cena</h2>
+    <span class="section-n">05</span>
+  </div>
+  <div class="pricing-wrap fi">
+    <div>
+      <div class="price-big">od 350 €</div>
+      <p class="price-note">Jednorazová platba. Žiadne mesačné poplatky, žiadne skryté náklady. Cena závisí od rozsahu — menší web môže byť aj lacnejší.</p>
+    </div>
+    <ul class="includes">
+      <li><strong>Hotovo do cca 2 týždňov</strong></li>
+      <li>Mobilná verzia v cene</li>
+      <li>Základné SEO (Google)</li>
+      <li>1 mesiac opráv zadarmo</li>
+      <li>Pomoc s doménou a hostingom</li>
+      <li>Návrh vopred — bez záväzkov</li>
+    </ul>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="section" id="contact">
+  <div class="section-header fi">
+    <h2 class="section-title">Napíšte mi</h2>
+    <span class="section-n">06</span>
+  </div>
+  <div class="contact-wrap fi">
+    <div>
+      <p class="contact-hl">Zaujalo vás to?<br><em>Ozvite sa.</em></p>
+      <p class="contact-sub">Rád si pozriem váš prípad a navrhnem riešenie. Bezplatná konzultácia, bez záväzkov. Píšte, volajte alebo sa zastavte osobne.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:ns.cehelsky@gmail.com" class="contact-link">
+        ns.cehelsky@gmail.com
+        <span class="lbl">Email</span>
+      </a>
+      <a href="https://github.com/NS-Cehelsky" target="_blank" class="contact-link">
+        github.com/NS-Cehelsky
+        <span class="lbl">GitHub</span>
+      </a>
+      <a href="https://ns-cehelsky.github.io/portfolio" target="_blank" class="contact-link">
+        ns-cehelsky.github.io/portfolio
+        <span class="lbl">Dev portfólio</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 NS web — Nino Cehelský</span>
+  <span>Prešov, SK</span>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
