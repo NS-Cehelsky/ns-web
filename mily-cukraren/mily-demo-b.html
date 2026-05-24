@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cukráreň Mily – Prešov</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #fff5f7;
+      --warm:     #fce8ef;
+      --peach:    #f7b8cc;
+      --accent:   #c2185b;
+      --accent2:  #e91e8c;
+      --dark:     #3d0a20;
+      --mid:      #7a3a58;
+      --light:    #a05878;
+      --border:   #f5d0df;
+      --white:    #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    #menu, #o-nas, #recenzie, #objednavka, #kontakt, #konfigurator {
+      scroll-margin-top: 70px;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: var(--accent);
+      letter-spacing: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--mid);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 10px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      transition: background 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 48px 60px;
+      background: linear-gradient(135deg, #fff0f5 0%, #fce0ea 55%, #f9c8d9 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: rgba(194,24,91,0.08);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 30%;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(194,24,91,0.05);
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+    .hero-text { flex: 1; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 6px 14px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 58px;
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 18px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--mid);
+      line-height: 1.8;
+      max-width: 420px;
+      margin-bottom: 32px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 28px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      border-radius: 28px;
+      padding: 12px 26px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: var(--accent); color: #fff; }
+
+    .hero-visual {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-circle {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 16px 56px rgba(194,24,91,0.25);
+      border: 5px solid var(--peach);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .hero-circle:hover {
+      transform: scale(1.03);
+      box-shadow: 0 24px 72px rgba(194,24,91,0.32);
+    }
+    .hero-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .rating-pill {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      border: 2px solid var(--peach);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(194,24,91,0.12);
+    }
+    .stars { display: flex; gap: 2px; }
+    .stars svg { width: 14px; height: 14px; fill: #f5a623; }
+
+    /* ─── BADGES ─── */
+    .badges-section {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 48px;
+    }
+    .badges-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cream);
+      border: 1.5px solid var(--peach);
+      border-radius: 24px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--mid);
+    }
+    .badge svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 80px 48px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-label svg { width: 16px; height: 16px; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--light);
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+
+    /* ─── MENU ─── */
+    .menu-section { background: var(--cream); }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .menu-card {
+      background: var(--white);
+      border-radius: 18px;
+      border: 1.5px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .menu-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(194,24,91,0.15);
+    }
+    .menu-card-img {
+      width: 100%;
+      height: 175px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .menu-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .menu-card:hover .menu-card-img img { transform: scale(1.07); }
+    .menu-card-body {
+      padding: 20px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      flex: 1;
+    }
+    .menu-card-body h3 { font-size: 16px; font-weight: 700; color: var(--dark); }
+    .menu-card-body p { font-size: 13px; color: var(--light); line-height: 1.6; }
+    .menu-tag {
+      margin-top: auto;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      background: #fff5f7;
+      border-radius: 12px;
+      padding: 3px 10px;
+      border: 1px solid var(--peach);
+    }
+
+    /* ─── FEATURES ─── */
+    .features-section { background: var(--white); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .feature-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .feature-icon-wrap {
+      flex-shrink: 0;
+      width: 56px; height: 56px;
+      background: var(--cream);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--border);
+    }
+    .feature-icon-wrap svg { width: 28px; height: 28px; }
+    .feature-item h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .feature-item p { font-size: 14px; color: var(--light); line-height: 1.7; }
+
+    /* ─── REVIEWS ─── */
+    .reviews-section { background: var(--warm); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .review-card {
+      background: var(--white);
+      border-radius: 18px;
+      border: 1.5px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .review-stars { display: flex; gap: 3px; }
+    .review-stars svg { width: 16px; height: 16px; fill: #f5a623; }
+    .review-text {
+      font-size: 14px;
+      color: var(--dark);
+      line-height: 1.7;
+      font-style: italic;
+      flex: 1;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .review-avatar {
+      width: 36px; height: 36px;
+      background: var(--cream);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      border: 1.5px solid var(--peach);
+    }
+    .review-name { font-size: 13px; font-weight: 700; color: var(--mid); }
+    .review-date { font-size: 11px; color: var(--light); }
+
+    /* ─── TORTA CTA ─── */
+    .cake-cta {
+      background: var(--dark);
+      padding: 80px 48px;
+    }
+    .cake-cta-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .cake-cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--peach);
+      margin-bottom: 12px;
+    }
+    .cake-cta p {
+      font-size: 15px;
+      color: #c48098;
+      line-height: 1.7;
+      max-width: 480px;
+    }
+    .cake-cta-btns { display: flex; gap: 14px; flex-shrink: 0; }
+    .btn-light {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--peach);
+      color: var(--dark);
+      border: none;
+      border-radius: 28px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-light:hover { background: #fde8c8; }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--peach);
+      border: 2px solid rgba(252,212,160,0.4);
+      border-radius: 28px;
+      padding: 12px 26px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--peach); }
+
+    /* ─── INFO ─── */
+    .info-section {
+      background: var(--white);
+      padding: 80px 48px;
+      border-top: 1px solid var(--border);
+    }
+    .info-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+    .info-block-icon {
+      width: 48px; height: 48px;
+      background: var(--cream);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1.5px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .info-block-icon svg { width: 24px; height: 24px; }
+    .info-block h3 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .info-block p, .info-block address {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.8;
+      font-style: normal;
+    }
+    .info-block a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+    /* ─── MAP ─── */
+    .map-iframe {
+      width: 100%;
+      height: 185px;
+      border: 0;
+      border-radius: 14px;
+      margin-top: 16px;
+      display: block;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--peach);
+    }
+    footer p {
+      font-size: 13px;
+      color: #8a6040;
+    }
+    .footer-links {
+      display: flex; gap: 24px; list-style: none;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: #8a6040;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--peach); }
+
+    /* ─── PRICING SECTION ─── */
+    .pricing-section { background: var(--warm); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .pricing-card {
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(194,24,91,0.12); }
+    .pricing-card.premium { border-color: var(--accent); }
+    .pricing-card-header { padding: 28px 28px 20px; }
+    .pricing-card.standard .pricing-card-header { background: var(--cream); }
+    .pricing-card.premium .pricing-card-header { background: var(--dark); }
+    .pricing-badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 20px;
+      padding: 5px 12px;
+      margin-bottom: 14px;
+    }
+    .pricing-badge-top.std { background: var(--border); color: var(--mid); }
+    .pricing-badge-top.prem { background: var(--accent); color: #fff; }
+    .pricing-card-header h3 { font-family: 'Playfair Display', serif; font-size: 26px; margin-bottom: 6px; }
+    .pricing-card.standard .pricing-card-header h3 { color: var(--dark); }
+    .pricing-card.premium .pricing-card-header h3 { color: var(--peach); }
+    .pricing-card-header p { font-size: 13px; line-height: 1.6; }
+    .pricing-card.standard .pricing-card-header p { color: var(--light); }
+    .pricing-card.premium .pricing-card-header p { color: #c48098; }
+    .pricing-price { margin-top: 18px; display: flex; align-items: baseline; gap: 4px; }
+    .pricing-price .from-txt { font-size: 13px; font-weight: 600; }
+    .pricing-card.standard .pricing-price .from-txt { color: var(--light); }
+    .pricing-card.premium .pricing-price .from-txt { color: #c48098; }
+    .pricing-price .price-num { font-family: 'Playfair Display', serif; font-size: 44px; line-height: 1; }
+    .pricing-card.standard .pricing-price .price-num { color: var(--accent); }
+    .pricing-card.premium .pricing-price .price-num { color: var(--peach); }
+    .pricing-price .price-unit { font-size: 14px; font-weight: 600; }
+    .pricing-card.standard .pricing-price .price-unit { color: var(--light); }
+    .pricing-card.premium .pricing-price .price-unit { color: #c48098; }
+    .pricing-card-body { padding: 24px 28px 28px; }
+    .pricing-features { list-style: none; margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .pricing-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--mid); line-height: 1.5; }
+    .pf-check { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .pf-check.yes { background: #e8f5ef; }
+    .pf-check.yes svg { stroke: #2a7a4a; }
+    .pf-check.no { background: var(--cream); }
+    .pf-check.no svg { stroke: #ccc; }
+    .pf-check svg { width: 12px; height: 12px; }
+    .pricing-features li.greyed { color: #ccc; }
+    .btn-pricing-std {
+      display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+      background: transparent; border: 2px solid var(--accent); color: var(--accent);
+      border-radius: 14px; padding: 13px; font-size: 14px; font-weight: 800;
+      cursor: pointer; font-family: 'Nunito', sans-serif; text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-pricing-std:hover { background: var(--accent); color: #fff; }
+    .btn-pricing-prem {
+      display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+      background: var(--accent); border: 2px solid var(--accent); color: #fff;
+      border-radius: 14px; padding: 13px; font-size: 14px; font-weight: 800;
+      cursor: pointer; font-family: 'Nunito', sans-serif; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-pricing-prem:hover { background: var(--accent2); border-color: var(--accent2); }
+
+    /* ─── CONFIGURATOR ─── */
+    .configurator-section { background: var(--cream); display: none; border-top: 1px solid var(--border); }
+    .configurator-section.open { display: block; }
+    .cfg-header { background: var(--dark); padding: 40px 48px 32px; }
+    .cfg-header h2 { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--peach); margin-bottom: 8px; }
+    .cfg-header p { font-size: 14px; color: #c48098; }
+    .cfg-inner { max-width: 1100px; margin: 0 auto; padding: 32px 48px 60px; }
+    .cfg-layout { display: grid; grid-template-columns: 1fr 290px; gap: 24px; align-items: start; }
+    .cfg-step {
+      background: var(--white); border: 1.5px solid var(--border); border-radius: 18px;
+      padding: 22px; margin-bottom: 14px; transition: border-color 0.2s;
+    }
+    .cfg-step-hdr { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .cfg-num {
+      width: 30px; height: 30px; background: var(--accent); color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0;
+    }
+    .cfg-step-hdr h4 { font-size: 15px; font-weight: 800; color: var(--dark); }
+    .cfg-step-hdr span { font-size: 12px; color: var(--light); display: block; }
+    .cfg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+    .cfg-opt {
+      border: 2px solid var(--border); border-radius: 12px; padding: 13px 8px;
+      text-align: center; cursor: pointer; user-select: none;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    }
+    .cfg-opt:hover { border-color: var(--accent2); transform: translateY(-2px); }
+    .cfg-opt.sel { border-color: var(--accent); background: var(--warm); }
+    .cfg-opt .co-emoji { font-size: 24px; display: block; margin-bottom: 5px; }
+    .cfg-opt .co-name { font-size: 12px; font-weight: 700; color: var(--dark); display: block; }
+    .cfg-opt .co-price { font-size: 11px; color: var(--accent); font-weight: 700; display: block; margin-top: 2px; }
+    .cfg-sizes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .cfg-size {
+      border: 2px solid var(--border); border-radius: 12px; padding: 14px 8px;
+      text-align: center; cursor: pointer; user-select: none;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    }
+    .cfg-size:hover { border-color: var(--accent2); transform: translateY(-2px); }
+    .cfg-size.sel { border-color: var(--accent); background: var(--warm); }
+    .cfg-size .cs-circle { margin: 0 auto 8px; background: var(--peach); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: var(--accent); }
+    .cfg-size .co-name { font-size: 13px; font-weight: 800; color: var(--dark); display: block; }
+    .cfg-size .co-sub { font-size: 11px; color: var(--light); display: block; }
+    .cfg-size .co-price { font-size: 12px; color: var(--accent); font-weight: 800; margin-top: 5px; display: block; }
+    .cfg-extras { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cfg-extra {
+      display: flex; align-items: center; gap: 10px; padding: 11px 12px;
+      border: 2px solid var(--border); border-radius: 10px; cursor: pointer; user-select: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .cfg-extra:hover { border-color: var(--accent2); }
+    .cfg-extra.on { border-color: var(--accent); background: var(--warm); }
+    .cfg-extra-box {
+      width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 6px;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .cfg-extra.on .cfg-extra-box { background: var(--accent); border-color: var(--accent); }
+    .cfg-extra-box svg { width: 11px; height: 11px; stroke: white; display: none; }
+    .cfg-extra.on .cfg-extra-box svg { display: block; }
+    .cfg-extra-lbl { font-size: 12px; font-weight: 700; color: var(--dark); flex: 1; }
+    .cfg-extra-price { font-size: 11px; color: var(--accent); font-weight: 700; }
+    .cfg-flabel { font-size: 11px; font-weight: 700; color: var(--mid); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
+    .cfg-input {
+      width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 13px;
+      font-family: 'Nunito', sans-serif; font-size: 14px; color: var(--dark); background: var(--cream);
+      transition: border-color 0.2s; margin-bottom: 10px;
+    }
+    .cfg-input:focus { outline: none; border-color: var(--accent); }
+    .cfg-textarea {
+      width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 13px;
+      font-family: 'Nunito', sans-serif; font-size: 14px; color: var(--dark); background: var(--cream);
+      resize: vertical; min-height: 70px; transition: border-color 0.2s;
+    }
+    .cfg-textarea:focus { outline: none; border-color: var(--accent); }
+    .cfg-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .cfg-summary { position: sticky; top: 76px; }
+    .cfg-sum-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden; }
+    .cfg-sum-hdr { background: var(--dark); padding: 18px 22px; }
+    .cfg-sum-hdr h4 { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--peach); margin-bottom: 3px; }
+    .cfg-sum-hdr p { font-size: 11px; color: #c48098; }
+    .cfg-sum-body { padding: 18px 22px; }
+    .cfg-sum-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; font-size: 13px; }
+    .cfg-sum-row .csr-lbl { color: var(--light); }
+    .cfg-sum-row .csr-val { font-weight: 700; color: var(--dark); text-align: right; max-width: 150px; font-size: 12px; }
+    .cfg-sum-row .csr-val.empty { color: #ddd; font-style: italic; font-weight: 400; }
+    .cfg-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+    .cfg-total-row { display: flex; justify-content: space-between; align-items: center; }
+    .cfg-total-row .ct-lbl { font-size: 14px; font-weight: 800; color: var(--dark); }
+    .cfg-total-row .ct-price { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--accent); }
+    .cfg-sum-note { font-size: 11px; color: var(--light); text-align: center; margin-top: 10px; line-height: 1.6; }
+    .btn-cfg-order {
+      display: block; width: 100%; margin-top: 14px; background: var(--accent); color: #fff;
+      border: none; border-radius: 12px; padding: 13px; font-size: 14px; font-weight: 800;
+      font-family: 'Nunito', sans-serif; cursor: pointer; transition: background 0.2s, transform 0.15s;
+    }
+    .btn-cfg-order:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    /* Simple order modal */
+    .sord-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(61,31,5,0.55);
+      z-index: 200; align-items: center; justify-content: center; padding: 20px;
+    }
+    .sord-overlay.show { display: flex; }
+    .sord-modal {
+      background: var(--white); border-radius: 24px; width: 100%; max-width: 440px;
+      overflow: hidden; animation: cfgPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes cfgPop { from { transform: scale(0.88); opacity:0; } to { transform: scale(1); opacity:1; } }
+    .sord-hdr { background: var(--dark); padding: 22px 26px; }
+    .sord-hdr h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--peach); margin-bottom: 4px; }
+    .sord-hdr p { font-size: 12px; color: #c48098; }
+    .sord-body { padding: 22px 26px 26px; }
+    .sord-body .cfg-2col { margin-bottom: 10px; }
+
+    /* Success modal */
+    .succ-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(61,31,5,0.55);
+      z-index: 300; align-items: center; justify-content: center;
+    }
+    .succ-overlay.show { display: flex; }
+    .succ-box {
+      background: var(--white); border-radius: 24px; padding: 40px; max-width: 360px;
+      width: 90%; text-align: center; animation: cfgPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .succ-box .si { font-size: 50px; margin-bottom: 14px; }
+    .succ-box h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--dark); margin-bottom: 10px; }
+    .succ-box p { font-size: 13px; color: var(--mid); line-height: 1.7; margin-bottom: 22px; }
+    .btn-succ { background: var(--accent); color: #fff; border: none; border-radius: 12px; padding: 12px 28px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: 'Nunito', sans-serif; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-text { animation: fadeUp 0.7s ease both; }
+    .hero-visual { animation: fadeUp 0.7s 0.2s ease both; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .hero-inner { flex-direction: column; text-align: center; }
+      .hero h1 { font-size: 40px; }
+      .hero-sub { max-width: 100%; }
+      .hero-btns { justify-content: center; }
+      section { padding: 60px 24px; }
+      .menu-grid { grid-template-columns: 1fr 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .cake-cta-inner { flex-direction: column; text-align: center; }
+      .cake-cta-btns { justify-content: center; }
+      .info-inner { grid-template-columns: 1fr; gap: 32px; }
+      .badges-section { padding: 16px 24px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .cfg-layout { grid-template-columns: 1fr; }
+      .cfg-header { padding: 32px 24px 24px; }
+      .cfg-inner { padding: 24px 24px 48px; }
+      .cfg-sizes { grid-template-columns: repeat(2, 1fr); }
+      .cfg-extras { grid-template-columns: 1fr; }
+      .cfg-2col { grid-template-columns: 1fr; }
+    }
+  </style>
+<style>
+    /* ─── DEMO WATERMARK ─── */
+    .demo-banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: linear-gradient(90deg, #c2185b, #e91e8c);
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-family: "Nunito", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 2px 12px rgba(194,24,91,0.3);
+    }
+    .demo-banner a {
+      color: #fff;
+      text-decoration: underline;
+      font-weight: 700;
+    }
+    .demo-banner .demo-badge {
+      background: rgba(255,255,255,0.25);
+      border-radius: 12px;
+      padding: 2px 10px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .demo-watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-35deg);
+      font-family: "Playfair Display", serif;
+      font-size: 96px;
+      font-weight: 700;
+      color: rgba(194,24,91,0.06);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 9998;
+      user-select: none;
+      letter-spacing: 8px;
+    }
+    nav { top: 40px !important; }
+    .hero { padding-top: 144px !important; }
+</style>
+</head>
+<body>
+<div class="demo-banner">
+  <span class="demo-badge">⚠ Demo</span>
+  Táto stránka je chránená autorskými právami. Akékoľvek komerčné použitie bez súhlasu autora je zakázané.
+  <span class="demo-badge">© 2026</span>
+</div>
+<div class="demo-watermark">DEMO</div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <span class="nav-logo">Mily</span>
+  <ul class="nav-links">
+    <li><a href="#menu" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'});return false;">Menu</a></li>
+    <li><a href="#o-nas" onclick="document.getElementById('o-nas').scrollIntoView({behavior:'smooth'});return false;">O nás</a></li>
+    <li><a href="#recenzie" onclick="document.getElementById('recenzie').scrollIntoView({behavior:'smooth'});return false;">Recenzie</a></li>
+    <li><a href="#objednavka" onclick="document.getElementById('objednavka').scrollIntoView({behavior:'smooth'});return false;">Torty</a></li>
+    <li><a href="#kontakt" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'});return false;">Kontakt</a></li>
+  </ul>
+  <a href="#objednavka" class="nav-cta" style="text-decoration:none;" onclick="document.getElementById('objednavka').scrollIntoView({behavior:'smooth'});return false;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+    Objednaj tortu
+  </a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Centrum Prešova · Hlavná 75
+      </div>
+      <h1>Sladké chvíle<br>s <em>Mily</em></h1>
+      <p class="hero-sub">Čerstvé koláče, voňavá káva a úsmev, ktorý ti spríjemní deň. Príď k nám — máme aj bezlepkové a bezlaktózové dobroty!</p>
+      <div class="hero-btns">
+        <a href="#menu" class="btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+          Pozri menu
+        </a>
+        <a href="#kontakt" class="btn-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Nájdi nás
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-circle">
+        <img
+          src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=600&h=600&q=80"
+          alt="Jahodová torta"
+          loading="eager"
+        >
+      </div>
+      <div class="rating-pill">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        4,3 · 164 recenzií
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BADGES ─── -->
+<div class="badges-section">
+  <div class="badges-inner">
+    <div class="badge">
+      <!-- leaf / wheat-free icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      Bezlepkové
+    </div>
+    <div class="badge">
+      <!-- drop / dairy-free icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="12" y1="19" x2="12.01" y2="19"/></svg>
+      Bezlaktózové
+    </div>
+    <div class="badge">
+      <!-- star / kids corner -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Detský kútik
+    </div>
+    <div class="badge">
+      <!-- gift box / custom cakes -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      Torty na zákazku
+    </div>
+    <div class="badge">
+      <!-- map pin / location -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Centrum mesta
+    </div>
+  </div>
+</div>
+
+<!-- ─── MENU ─── -->
+<section class="menu-section" id="menu">
+  <div class="section-inner">
+    <div class="section-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+      Naše špeciality
+    </div>
+    <h2 class="section-title">Čo u nás nájdeš</h2>
+    <p class="section-sub">Každý deň čerstvé, s láskou pripravené dobroty pre celú rodinu.</p>
+
+    <div class="menu-grid">
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=480&h=220&q=80" alt="Zákusky a torty" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Zákusky &amp; torty</h3>
+          <p>Punčový, smotanový pohár, cheesecake, Milka torta a ďalšie — čerstvé každý deň.</p>
+          <span class="menu-tag">Bestseller</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=480&h=220&q=80" alt="Káva s latte art" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Káva &amp; čaj</h3>
+          <p>Silná poctivá káva, latte, kapučíno. Pečené čaje v rôznych príchutiach.</p>
+          <span class="menu-tag">Obľúbené</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=480&h=220&q=80" alt="Zmrzlina" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Zmrzlina &amp; poháre</h3>
+          <p>Lahodná zmrzlina v rôznych príchutiach, smotanové poháre so sezónnymi topping-mi.</p>
+          <span class="menu-tag">Letný hit</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=480&h=220&q=80" alt="Palacinky" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Palacinky</h3>
+          <p>Poskladaj si vlastnú palacinku — vyber si náplň aj prílohy podľa chuti.</p>
+          <span class="menu-tag">Na mieru</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=480&h=220&q=80" alt="Miešané drinky" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Miešané drinky</h3>
+          <p>Mojito, piňa colada, limonády a ďalšie osviežujúce nealko aj alko drinky.</p>
+          <span class="menu-tag">Nové</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=480&h=220&q=80" alt="Horúca čokoláda" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Horúca čokoláda</h3>
+          <p>Viac druhov horúcej čokolády — mliečna, horká, biela, s príchuťami.</p>
+          <span class="menu-tag">Zimný hit</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section class="features-section" id="o-nas">
+  <div class="section-inner">
+    <div class="section-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Prečo Mily
+    </div>
+    <h2 class="section-title">Miesto, kde sa cítiš doma</h2>
+    <p class="section-sub">Viac ako 7 rokov prinášame radosť do Prešova. Tu je pár dôvodov, prečo sa k nám ľudia radi vracajú.</p>
+
+    <div class="features-grid">
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- smile / friendly staff -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <div>
+          <h3>Milá obsluha s úsmevom</h3>
+          <p>Naše pani v cukrárni vás vždy privítajú s úsmevom. Príjemný personál je to, čo zákazníci spomínajú najčastejšie.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- sun / warm atmosphere -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </div>
+        <div>
+          <h3>Útulná atmosféra</h3>
+          <p>Príjemné prostredie v zelených farbách, nový nábytok a citáty na stenách vytvárajú perfektné miesto na oddych.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- check-circle / allergy friendly -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <h3>Bezlepkové &amp; bezlaktózové</h3>
+          <p>Špeciálne koláče a torty pre alergikov — dokonca aj narodeninové torty na zákazku bez lepku a laktózy.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- users / family friendly -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <h3>Vhodné pre celú rodinu</h3>
+          <p>Detský kútik s trampolínou, priestor pre kočiare — ideálne miesto na výlet s deťmi v centre mesta.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- tag / fair prices -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        </div>
+        <div>
+          <h3>Férové ceny</h3>
+          <p>Výborná kvalita za rozumnú cenu. Zákazníci opakujú, že Mily ponúka najlepší pomer ceny a kvality v centre.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- refresh / rotating menu -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+        </div>
+        <div>
+          <h3>Ponuka sa obmieňa</h3>
+          <p>Pravidelné novinky v menu a sezónne špeciality — vždy tu nájdeš niečo nové na objavovanie.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── REVIEWS ─── -->
+<section class="reviews-section" id="recenzie">
+  <div class="section-inner">
+    <div class="section-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Google recenzie
+    </div>
+    <h2 class="section-title">Čo hovoria naši hostia</h2>
+    <p class="section-sub">4,3 hviezdy z 164 recenzií. Tu je pár príbehov priamo od zákazníkov.</p>
+
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Príjemné posedenie pri kávičke a výbornom koláčiku za úžasné ceny. Radi sa sem vrátime!"</p>
+        <div class="review-author">
+          <div class="review-avatar">AP</div>
+          <div>
+            <div class="review-name">Aťka P.</div>
+            <div class="review-date">Miestny sprievodca</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Táto cukráreň mne a mojej rodine prirástla k srdci. Rodinná atmosféra, kde máte pocit, že patríte."</p>
+        <div class="review-author">
+          <div class="review-avatar">KK</div>
+          <div>
+            <div class="review-name">Kristína K.</div>
+            <div class="review-date">Miestny sprievodca</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Moja 'go to' destinácia v centre. Najlepšia cukráreň v Prešove podľa mňa. Ceny sú super!"</p>
+        <div class="review-author">
+          <div class="review-avatar">VN</div>
+          <div>
+            <div class="review-name">Viktória N.</div>
+            <div class="review-date">Miestny sprievodca</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Bohatý výber zákuskov, limonád. Skvelé pohodlné posedenie s milým personálom, ktorému nikdy nechýba úsmev."</p>
+        <div class="review-author">
+          <div class="review-avatar">T</div>
+          <div>
+            <div class="review-name">Tomáš</div>
+            <div class="review-date">Miestny sprievodca · 211 recenzií</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Ďakujem za zhotovenie bezlepkovej a bezlaktózovej narodeninovej torty. Chutila celej rodine!"</p>
+        <div class="review-author">
+          <div class="review-avatar">AB</div>
+          <div>
+            <div class="review-name">Angela B.</div>
+            <div class="review-date">Miestny sprievodca</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Výborný zmrzlinový pohár a poctivá silná káva za rozumnú cenu. Útulné, priateľské miesto."</p>
+        <div class="review-author">
+          <div class="review-avatar">MZ</div>
+          <div>
+            <div class="review-name">Milan Z.</div>
+            <div class="review-date">Miestny sprievodca · 62 recenzií</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── PRICING (OBJEDNÁVKA TORTY) ─── -->
+<section class="pricing-section" id="objednavka">
+  <div class="section-inner">
+    <div class="section-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      Objednávka torty
+    </div>
+    <h2 class="section-title">Vyber si svoju tortu</h2>
+    <p class="section-sub">Dve možnosti — jednoduchá telefonická objednávka, alebo si tortu poskladaj presne podľa seba s okamžitou cenou.</p>
+
+    <div class="pricing-grid">
+
+      <!-- STANDARD -->
+      <div class="pricing-card standard">
+        <div class="pricing-card-header">
+          <span class="pricing-badge-top std">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.64A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.09 6.09l1.27-.83a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Základná
+          </span>
+          <h3>Torta na mieru</h3>
+          <p>Povieš nám čo chceš, my ti poradíme a spravíme tortu podľa tvojich predstáv. Cena dohodou pri telefonáte alebo osobne.</p>
+          <div class="pricing-price">
+            <span class="from-txt">od</span>
+            <span class="price-num">22</span>
+            <span class="price-unit">€</span>
+          </div>
+        </div>
+        <div class="pricing-card-body">
+          <ul class="pricing-features">
+            <li>
+              <div class="pf-check yes"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              Klasická alebo čokoládová torta
+            </li>
+            <li>
+              <div class="pf-check yes"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              Bezlepková alebo bezlaktózová varianta
+            </li>
+            <li>
+              <div class="pf-check yes"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              Veľkosť podľa počtu porcií
+            </li>
+            <li>
+              <div class="pf-check yes"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              Cena sa dohodne pri objednávke
+            </li>
+            <li class="greyed">
+              <div class="pf-check no"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="10" x2="10" y2="2"/><line x1="2" y1="2" x2="10" y2="10"/></svg></div>
+              Bez okamžitej kalkulácie ceny
+            </li>
+            <li class="greyed">
+              <div class="pf-check no"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="10" x2="10" y2="2"/><line x1="2" y1="2" x2="10" y2="10"/></svg></div>
+              Bez výberu doplnkov a dekorácií online
+            </li>
+          </ul>
+          <button class="btn-pricing-std" onclick="openStdOrder()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.64A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.09 6.09l1.27-.83a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Objednať telefonicky
+          </button>
+        </div>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="pricing-card premium">
+        <div class="pricing-card-header">
+          <span class="pricing-badge-top prem">
+            <svg viewBox="0 0 24 24" stroke="none" width="12" height="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="currentColor"/></svg>
+            Konfigurátor
+          </span>
+          <h3>Poskladaj si tortu</h3>
+          <p>Krok za krokom si zvolíš veľkosť, cesto, krém, polevu aj doplnky. Cenu vidíš okamžite — bez prekvapení.</p>
+          <div class="pricing-price">
+            <span class="from-txt">od</span>
+            <span class="price-num">22</span>
+            <span class="price-unit">€ · cena v reálnom čase</span>
+          </div>
+        </div>
+        <div class="pricing-card-body">
+          <ul class="pricing-features">
+            <li>
+              <div class="pf-check yes"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              Výber cesta: klasika, čokoláda, bezlepkové, medovník
+            </li>
+            <li>
+              <div class="pf-check yes"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              Výber krému: smotana, vanilka, ganache, tiramisu a ďalšie
+            </li>
+            <li>
+              <div class="pf-check yes"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              Povrchová úprava: šľahačka, fondán, ovocie
+            </li>
+            <li>
+              <div class="pf-check yes"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              Doplnky: foto, nápis, sviečky, kvetiny, figurka
+            </li>
+            <li>
+              <div class="pf-check yes"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              Okamžitá kalkulácia ceny krok za krokom
+            </li>
+            <li>
+              <div class="pf-check yes"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              Výber termínu a odoslanie objednávky online
+            </li>
+          </ul>
+          <button class="btn-pricing-prem" onclick="openConfigurator()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            Poskladať si tortu →
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── KONFIGURÁTOR ─── -->
+<div class="configurator-section" id="konfigurator">
+  <div class="cfg-header" style="padding:40px 48px 32px;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fcd4a0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v2"/><path d="M12 8v2"/><path d="M17 8v2"/><path d="M7 4h.01"/><path d="M12 4h.01"/><path d="M17 4h.01"/></svg>
+        <span style="font-size:12px;font-weight:800;color:#c4a07a;letter-spacing:1.5px;text-transform:uppercase;">Krok za krokom</span>
+      </div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:30px;color:var(--peach);margin-bottom:6px;">Poskladaj si svoju tortu</h2>
+      <p style="font-size:13px;color:#c4a07a;">Vyber každú časť torty — cena sa počíta automaticky vpravo.</p>
+    </div>
+  </div>
+  <div style="max-width:1100px;margin:0 auto;padding:32px 48px 60px;">
+    <div class="cfg-layout">
+
+      <!-- Steps -->
+      <div>
+
+        <!-- 1: Veľkosť -->
+        <div class="cfg-step">
+          <div class="cfg-step-hdr">
+            <div class="cfg-num">1</div>
+            <div><h4>Veľkosť torty</h4><span>Koľko porcií potrebuješ?</span></div>
+          </div>
+          <div class="cfg-sizes">
+            <div class="cfg-size" onclick="cSize(this,'Mini','6–8 porcií',22)">
+              <div class="cs-circle" style="width:42px;height:42px;font-size:10px;">Ø18</div>
+              <span class="co-name">Mini</span><span class="co-sub">6–8 porcií</span><span class="co-price">od 22 €</span>
+            </div>
+            <div class="cfg-size" onclick="cSize(this,'Malá','10–12 porcií',32)">
+              <div class="cs-circle" style="width:52px;height:52px;font-size:10px;">Ø22</div>
+              <span class="co-name">Malá</span><span class="co-sub">10–12 porcií</span><span class="co-price">od 32 €</span>
+            </div>
+            <div class="cfg-size" onclick="cSize(this,'Stredná','14–16 porcií',44)">
+              <div class="cs-circle" style="width:62px;height:62px;font-size:10px;">Ø26</div>
+              <span class="co-name">Stredná</span><span class="co-sub">14–16 porcií</span><span class="co-price">od 44 €</span>
+            </div>
+            <div class="cfg-size" onclick="cSize(this,'Veľká','18–22 porcií',58)">
+              <div class="cs-circle" style="width:74px;height:74px;font-size:10px;">Ø30</div>
+              <span class="co-name">Veľká</span><span class="co-sub">18–22 porcií</span><span class="co-price">od 58 €</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2: Základ -->
+        <div class="cfg-step">
+          <div class="cfg-step-hdr">
+            <div class="cfg-num">2</div>
+            <div><h4>Základ (cesto)</h4><span>Aký základ si vyberieš?</span></div>
+          </div>
+          <div class="cfg-grid">
+            <div class="cfg-opt" onclick="cOpt(this,'base','Klasický piškót',0)"><span class="co-emoji">🧁</span><span class="co-name">Klasický piškót</span><span class="co-price">v cene</span></div>
+            <div class="cfg-opt" onclick="cOpt(this,'base','Čokoládový',0)"><span class="co-emoji">🍫</span><span class="co-name">Čokoládový</span><span class="co-price">v cene</span></div>
+            <div class="cfg-opt" onclick="cOpt(this,'base','Bezlepkový',4)"><span class="co-emoji">🌾</span><span class="co-name">Bezlepkový</span><span class="co-price">+4 €</span></div>
+            <div class="cfg-opt" onclick="cOpt(this,'base','Medový',0)"><span class="co-emoji">🍯</span><span class="co-name">Medový</span><span class="co-price">v cene</span></div>
+          </div>
+        </div>
+
+        <!-- 3: Krém -->
+        <div class="cfg-step">
+          <div class="cfg-step-hdr">
+            <div class="cfg-num">3</div>
+            <div><h4>Krém &amp; náplň</h4><span>Čím bude tortička plnená?</span></div>
+          </div>
+          <div class="cfg-grid">
+            <div class="cfg-opt" onclick="cOpt(this,'cream','Smotana',0)"><span class="co-emoji">🥛</span><span class="co-name">Smotana</span><span class="co-price">v cene</span></div>
+            <div class="cfg-opt" onclick="cOpt(this,'cream','Vanilkový krém',0)"><span class="co-emoji">🌼</span><span class="co-name">Vanilkový krém</span><span class="co-price">v cene</span></div>
+            <div class="cfg-opt" onclick="cOpt(this,'cream','Čokoládový ganache',2)"><span class="co-emoji">🍮</span><span class="co-name">Čokoládový ganache</span><span class="co-price">+2 €</span></div>
+            <div class="cfg-opt" onclick="cOpt(this,'cream','Ovocný',0)"><span class="co-emoji">🍓</span><span class="co-name">Ovocný</span><span class="co-price">v cene</span></div>
+            <div class="cfg-opt" onclick="cOpt(this,'cream','Tiramisu',2)"><span class="co-emoji">☕</span><span class="co-name">Tiramisu</span><span class="co-price">+2 €</span></div>
+            <div class="cfg-opt" onclick="cOpt(this,'cream','Bezlaktózový',4)"><span class="co-emoji">🌿</span><span class="co-name">Bezlaktózový</span><span class="co-price">+4 €</span></div>
+          </div>
+        </div>
+
+        <!-- 4: Povrch -->
+        <div class="cfg-step">
+          <div class="cfg-step-hdr">
+            <div class="cfg-num">4</div>
+            <div><h4>Povrchová úprava</h4><span>Ako bude torta vyzerať zvonka?</span></div>
+          </div>
+          <div class="cfg-grid">
+            <div class="cfg-opt" onclick="cOpt(this,'deco','Šľahačka',0)"><span class="co-emoji">🍦</span><span class="co-name">Šľahačka</span><span class="co-price">v cene</span></div>
+            <div class="cfg-opt" onclick="cOpt(this,'deco','Fondán hladký',6)"><span class="co-emoji">🎂</span><span class="co-name">Fondán hladký</span><span class="co-price">+6 €</span></div>
+            <div class="cfg-opt" onclick="cOpt(this,'deco','Fondán s motívom',12)"><span class="co-emoji">🎨</span><span class="co-name">Fondán s motívom</span><span class="co-price">+12 €</span></div>
+            <div class="cfg-opt" onclick="cOpt(this,'deco','Ovocie &amp; glazúra',3)"><span class="co-emoji">🍇</span><span class="co-name">Ovocie &amp; glazúra</span><span class="co-price">+3 €</span></div>
+          </div>
+        </div>
+
+        <!-- 5: Extra -->
+        <div class="cfg-step">
+          <div class="cfg-step-hdr">
+            <div class="cfg-num">5</div>
+            <div><h4>Extra doplnky</h4><span>Voliteľné príplatky (môžeš vybrať viac)</span></div>
+          </div>
+          <div class="cfg-extras">
+            <div class="cfg-extra" onclick="cExtra(this,'Foto na torte',8)">
+              <div class="cfg-extra-box"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              <span class="cfg-extra-lbl">📸 Foto na torte</span><span class="cfg-extra-price">+8 €</span>
+            </div>
+            <div class="cfg-extra" onclick="cExtra(this,'Meno / nápis',4)">
+              <div class="cfg-extra-box"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              <span class="cfg-extra-lbl">✍️ Meno / nápis</span><span class="cfg-extra-price">+4 €</span>
+            </div>
+            <div class="cfg-extra" onclick="cExtra(this,'Sviečky (10 ks)',2)">
+              <div class="cfg-extra-box"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              <span class="cfg-extra-lbl">🕯️ Sviečky (10 ks)</span><span class="cfg-extra-price">+2 €</span>
+            </div>
+            <div class="cfg-extra" onclick="cExtra(this,'Darčeková krabica',5)">
+              <div class="cfg-extra-box"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              <span class="cfg-extra-lbl">🎁 Darčeková krabica</span><span class="cfg-extra-price">+5 €</span>
+            </div>
+            <div class="cfg-extra" onclick="cExtra(this,'Kvetinová výzdoba',7)">
+              <div class="cfg-extra-box"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              <span class="cfg-extra-lbl">🌸 Kvetinová výzdoba</span><span class="cfg-extra-price">+7 €</span>
+            </div>
+            <div class="cfg-extra" onclick="cExtra(this,'Figurka z fondánu',10)">
+              <div class="cfg-extra-box"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div>
+              <span class="cfg-extra-lbl">🧸 Figurka z fondánu</span><span class="cfg-extra-price">+10 €</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6: Termín + kontakt -->
+        <div class="cfg-step">
+          <div class="cfg-step-hdr">
+            <div class="cfg-num">6</div>
+            <div><h4>Termín &amp; kontakt</h4><span>Kedy tortu potrebuješ?</span></div>
+          </div>
+          <div class="cfg-2col" style="margin-bottom:10px;">
+            <div><div class="cfg-flabel">Dátum vyzdvihnutia</div><input type="date" class="cfg-input" id="cfg-date" style="margin-bottom:0;"></div>
+            <div><div class="cfg-flabel">Čas (8:00–19:30)</div><input type="time" class="cfg-input" id="cfg-time" min="08:00" max="19:30" value="10:00" style="margin-bottom:0;"></div>
+          </div>
+          <div class="cfg-2col" style="margin-bottom:10px;">
+            <div><div class="cfg-flabel">Meno</div><input type="text" class="cfg-input" placeholder="Jana Kováčová" style="margin-bottom:0;"></div>
+            <div><div class="cfg-flabel">Telefón</div><input type="tel" class="cfg-input" placeholder="0900 000 000" style="margin-bottom:0;"></div>
+          </div>
+          <div class="cfg-flabel">Poznámka / špeciálne požiadavky</div>
+          <textarea class="cfg-textarea" placeholder="Farby, motív, alergie, nápis na torte..."></textarea>
+        </div>
+
+      </div>
+
+      <!-- Summary sidebar -->
+      <div class="cfg-summary">
+        <div class="cfg-sum-card">
+          <div class="cfg-sum-hdr">
+            <h4>Tvoja torta</h4>
+            <p>Zhrnutie objednávky</p>
+          </div>
+          <div class="cfg-sum-body">
+            <div class="cfg-sum-row"><span class="csr-lbl">Veľkosť</span><span class="csr-val empty" id="cs-size">–</span></div>
+            <div class="cfg-sum-row"><span class="csr-lbl">Základ</span><span class="csr-val empty" id="cs-base">–</span></div>
+            <div class="cfg-sum-row"><span class="csr-lbl">Krém</span><span class="csr-val empty" id="cs-cream">–</span></div>
+            <div class="cfg-sum-row"><span class="csr-lbl">Povrch</span><span class="csr-val empty" id="cs-deco">–</span></div>
+            <div class="cfg-sum-row" id="cs-extras-row" style="display:none;"><span class="csr-lbl">Doplnky</span><span class="csr-val" id="cs-extras" style="font-size:11px;line-height:1.5;"></span></div>
+            <hr class="cfg-divider">
+            <div class="cfg-total-row">
+              <span class="ct-lbl">Celková cena</span>
+              <span class="ct-price" id="cs-total">od 0 €</span>
+            </div>
+            <p class="cfg-sum-note">Záloha 50% pri potvrdení. Zvyšok pri vyzdvihnutí. Potvrdenie do 24 hod.</p>
+            <button class="btn-cfg-order" onclick="submitCfg()">Odoslať objednávku →</button>
+          </div>
+        </div>
+        <div style="background:#e8f5ef;border:1.5px solid #b3dfc8;border-radius:14px;padding:14px 16px;margin-top:14px;">
+          <div style="font-size:11px;font-weight:800;color:#2a7a4a;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:8px;">ℹ️ Dôležité</div>
+          <div style="font-size:11px;color:#2a5c3a;line-height:1.7;">Klasická torta: min. <strong>3–4 dni</strong><br>Bezlepková/bezlaktózová: <strong>4–5 dní</strong><br>Fondánová / s fotkou: <strong>5–7 dní</strong><br><br>Tel: <strong>0905 640 879</strong></div>
+        </div>
+        <button onclick="closeConfigurator()" style="width:100%;margin-top:12px;background:transparent;border:1.5px solid var(--border);border-radius:12px;padding:10px;font-size:13px;font-weight:700;color:var(--light);cursor:pointer;font-family:'Nunito',sans-serif;transition:border-color 0.2s;">↑ Skryť konfigurátor</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─── SIMPLE ORDER MODAL ─── -->
+<div class="sord-overlay" id="sord-overlay">
+  <div class="sord-modal">
+    <div class="sord-hdr">
+      <h3>Telefonická objednávka</h3>
+      <p>Zanech nám kontakt — ozveme sa a dohovoríme detaily.</p>
+    </div>
+    <div class="sord-body">
+      <div class="cfg-2col" style="margin-bottom:10px;">
+        <div><div class="cfg-flabel">Meno</div><input type="text" class="cfg-input" placeholder="Jana Kováčová" style="margin-bottom:0;"></div>
+        <div><div class="cfg-flabel">Telefón *</div><input type="tel" class="cfg-input" placeholder="0900 000 000" style="margin-bottom:0;"></div>
+      </div>
+      <div class="cfg-2col" style="margin-bottom:10px;">
+        <div><div class="cfg-flabel">Dátum sviatku</div><input type="date" class="cfg-input" style="margin-bottom:0;"></div>
+        <div><div class="cfg-flabel">Počet porcií</div>
+          <select class="cfg-input" style="margin-bottom:0;cursor:pointer;">
+            <option>6–8 porcií (mini)</option>
+            <option>10–12 porcií</option>
+            <option>14–16 porcií</option>
+            <option>18–22 porcií</option>
+            <option>Viac (dohovoríme)</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:14px;"><div class="cfg-flabel">Čo si predstavuješ?</div><textarea class="cfg-textarea" placeholder="Napr. čokoládová torta pre 10 ľudí, bezlepková, s menom Jana..."></textarea></div>
+      <div style="display:flex;gap:10px;">
+        <button onclick="closeSordModal()" style="flex:1;background:transparent;border:1.5px solid var(--border);border-radius:12px;padding:12px;font-size:13px;font-weight:700;color:var(--light);cursor:pointer;font-family:'Nunito',sans-serif;">Zrušiť</button>
+        <button onclick="submitSord()" style="flex:2;background:var(--accent);color:#fff;border:none;border-radius:12px;padding:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;">Odoslať žiadosť →</button>
+      </div>
+      <div style="margin-top:14px;text-align:center;font-size:13px;color:var(--light);">Alebo zavolaj priamo: <a href="tel:0905640879" style="color:var(--accent);font-weight:800;">0905 640 879</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SUCCESS MODAL ─── -->
+<div class="succ-overlay" id="succ-overlay">
+  <div class="succ-box">
+    <div class="si">🎉</div>
+    <h3>Objednávka odoslaná!</h3>
+    <p>Ďakujeme! Kontaktujeme vás do <strong>24 hodín</strong> na potvrdenie termínu a zálohy.<br><br>Tešíme sa na vás v Mily! 🍰</p>
+    <button class="btn-succ" onclick="closeSucc()">Zavrieť</button>
+  </div>
+</div>
+
+<!-- ─── TORTA CTA ─── -->
+<div class="cake-cta">
+  <div class="cake-cta-inner">
+    <div>
+      <h2>Torta na zákazku?</h2>
+      <p>Urobíme ti tortu presne podľa tvojich predstáv — klasickú, bezlepkovú, bezlaktózovú, s fondánom alebo s fotkou. Zavolaj nám alebo príď osobne.</p>
+    </div>
+    <div class="cake-cta-btns">
+      <a href="tel:0905640879" class="btn-light">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.64A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.09 6.09l1.27-.83a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Zavolaj nám
+      </a>
+      <a href="#kontakt" class="btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Kde nás nájdeš
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── INFO ─── -->
+<section class="info-section" id="kontakt">
+  <div class="info-inner">
+
+    <div class="info-block">
+      <div class="info-block-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <h3>Adresa</h3>
+      <address>
+        Hlavná 2908/75<br>
+        080 01 Prešov<br>
+        (blízko kostola, centrum mesta)
+      </address>
+      <iframe
+        class="map-iframe"
+        src="https://maps.google.com/maps?q=Cukr%C3%A1re%C5%88+Mily+Hlavna+75+Pre%C5%A1ov+Slovakia&output=embed&hl=sk&z=16"
+        allowfullscreen=""
+        loading="lazy"
+        title="Cukráreň Mily – mapa"
+      ></iframe>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <h3>Otváracie hodiny</h3>
+      <p>
+        <strong>Pondelok – Piatok</strong><br>
+        8:00 – 20:00<br><br>
+        <strong>Sobota</strong><br>
+        9:00 – 20:00<br><br>
+        <strong>Nedeľa</strong><br>
+        Zatvorené
+      </p>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.64A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.09 6.09l1.27-.83a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <h3>Kontakt</h3>
+      <p>
+        <a href="tel:0905640879">0905 640 879</a><br><br>
+        Torty na zákazku<br>
+        (bezlepkové, bezlaktózové,<br>
+        s fondánom, s fotkou)
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <span class="nav-logo footer-logo">Mily</span>
+  <p>© 2026 Cukráreň Mily · Prešov · Vytvorené s láskou</p>
+  <ul class="footer-links">
+    <li><a href="#menu" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'});return false;">Menu</a></li>
+    <li><a href="#o-nas" onclick="document.getElementById('o-nas').scrollIntoView({behavior:'smooth'});return false;">O nás</a></li>
+    <li><a href="#kontakt" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'});return false;">Kontakt</a></li>
+  </ul>
+</footer>
+
+
+<script>
+  // ─── Configurator state ───
+  const cs = { size:0, sizeLabel:'', base:0, baseLabel:'', cream:0, creamLabel:'', deco:0, decoLabel:'', extras:[] };
+
+  function cSize(el, label, sub, price) {
+    document.querySelectorAll('.cfg-size').forEach(c => c.classList.remove('sel'));
+    el.classList.add('sel');
+    cs.size = price; cs.sizeLabel = label + ' (' + sub + ')';
+    updateCfgSummary();
+  }
+  function cOpt(el, key, label, price) {
+    const grid = el.closest('.cfg-grid');
+    grid.querySelectorAll('.cfg-opt').forEach(c => c.classList.remove('sel'));
+    el.classList.add('sel');
+    cs[key] = price; cs[key + 'Label'] = label;
+    updateCfgSummary();
+  }
+  function cExtra(el, label, price) {
+    el.classList.toggle('on');
+    const idx = cs.extras.findIndex(e => e.label === label);
+    if (idx === -1) cs.extras.push({label, price});
+    else cs.extras.splice(idx, 1);
+    updateCfgSummary();
+  }
+  function updateCfgSummary() {
+    const set = (id, val) => {
+      const el = document.getElementById(id);
+      if (val) { el.textContent = val; el.classList.remove('empty'); }
+      else { el.textContent = '–'; el.classList.add('empty'); }
+    };
+    set('cs-size', cs.sizeLabel); set('cs-base', cs.baseLabel);
+    set('cs-cream', cs.creamLabel); set('cs-deco', cs.decoLabel);
+    const er = document.getElementById('cs-extras-row');
+    if (cs.extras.length > 0) {
+      er.style.display = 'flex';
+      document.getElementById('cs-extras').textContent = cs.extras.map(e=>e.label).join(', ');
+    } else { er.style.display = 'none'; }
+    const total = cs.size + cs.base + cs.cream + cs.deco + cs.extras.reduce((s,e)=>s+e.price,0);
+    document.getElementById('cs-total').textContent = total > 0 ? total + ' €' : 'od 0 €';
+  }
+
+  // ─── Open/close configurator ───
+  function openConfigurator() {
+    const cfg = document.getElementById('konfigurator');
+    cfg.classList.add('open');
+    setTimeout(() => cfg.scrollIntoView({behavior:'smooth', block:'start'}), 50);
+  }
+  function closeConfigurator() {
+    document.getElementById('konfigurator').classList.remove('open');
+    document.getElementById('objednavka').scrollIntoView({behavior:'smooth'});
+  }
+
+  // ─── Simple order modal ───
+  function openStdOrder() { document.getElementById('sord-overlay').classList.add('show'); }
+  function closeSordModal() { document.getElementById('sord-overlay').classList.remove('show'); }
+  function submitSord() { closeSordModal(); showSucc(); }
+
+  // ─── Configurator submit ───
+  function submitCfg() { showSucc(); }
+
+  // ─── Success modal ───
+  function showSucc() { document.getElementById('succ-overlay').classList.add('show'); }
+  function closeSucc() { document.getElementById('succ-overlay').classList.remove('show'); }
+
+  // Close modals on backdrop click
+  document.getElementById('sord-overlay').addEventListener('click', function(e) { if(e.target===this) closeSordModal(); });
+  document.getElementById('succ-overlay').addEventListener('click', function(e) { if(e.target===this) closeSucc(); });
+
+  // Set min date
+  const today = new Date().toISOString().split('T')[0];
+  const cfgDate = document.getElementById('cfg-date');
+  if (cfgDate) cfgDate.min = today;
+</script>
+
+</body>
+</html>

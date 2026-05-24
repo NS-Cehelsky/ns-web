@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cukráreň Mily – Prešov</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #fff5f7;
+      --warm:     #fce8ef;
+      --peach:    #f7b8cc;
+      --accent:   #c2185b;
+      --accent2:  #e91e8c;
+      --dark:     #3d0a20;
+      --mid:      #7a3a58;
+      --light:    #a05878;
+      --border:   #f5d0df;
+      --white:    #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: var(--accent);
+      letter-spacing: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--mid);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 10px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      transition: background 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 48px 60px;
+      background: linear-gradient(135deg, #fff0f5 0%, #fce0ea 55%, #f9c8d9 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: rgba(194,24,91,0.08);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 30%;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(194,24,91,0.05);
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+    .hero-text { flex: 1; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 6px 14px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 58px;
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 18px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--mid);
+      line-height: 1.8;
+      max-width: 420px;
+      margin-bottom: 32px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 28px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      border-radius: 28px;
+      padding: 12px 26px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: var(--accent); color: #fff; }
+
+    .hero-visual {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-circle {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 16px 56px rgba(194,24,91,0.25);
+      border: 5px solid var(--peach);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .hero-circle:hover {
+      transform: scale(1.03);
+      box-shadow: 0 24px 72px rgba(194,24,91,0.32);
+    }
+    .hero-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .rating-pill {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      border: 2px solid var(--peach);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(194,24,91,0.12);
+    }
+    .stars { display: flex; gap: 2px; }
+    .stars svg { width: 14px; height: 14px; fill: #f5a623; }
+
+    /* ─── BADGES ─── */
+    .badges-section {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 48px;
+    }
+    .badges-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cream);
+      border: 1.5px solid var(--peach);
+      border-radius: 24px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--mid);
+    }
+    .badge svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 80px 48px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-label svg { width: 16px; height: 16px; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--light);
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+
+    /* ─── MENU ─── */
+    .menu-section { background: var(--cream); }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .menu-card {
+      background: var(--white);
+      border-radius: 18px;
+      border: 1.5px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .menu-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(194,24,91,0.15);
+    }
+    .menu-card-img {
+      width: 100%;
+      height: 175px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .menu-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .menu-card:hover .menu-card-img img { transform: scale(1.07); }
+    .menu-card-body {
+      padding: 20px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      flex: 1;
+    }
+    .menu-card-body h3 { font-size: 16px; font-weight: 700; color: var(--dark); }
+    .menu-card-body p { font-size: 13px; color: var(--light); line-height: 1.6; }
+    .menu-tag {
+      margin-top: auto;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      background: #fff5f7;
+      border-radius: 12px;
+      padding: 3px 10px;
+      border: 1px solid var(--peach);
+    }
+
+    /* ─── FEATURES ─── */
+    .features-section { background: var(--white); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .feature-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .feature-icon-wrap {
+      flex-shrink: 0;
+      width: 56px; height: 56px;
+      background: var(--cream);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--border);
+    }
+    .feature-icon-wrap svg { width: 28px; height: 28px; }
+    .feature-item h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .feature-item p { font-size: 14px; color: var(--light); line-height: 1.7; }
+
+    /* ─── REVIEWS ─── */
+    .reviews-section { background: var(--warm); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .review-card {
+      background: var(--white);
+      border-radius: 18px;
+      border: 1.5px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .review-stars { display: flex; gap: 3px; }
+    .review-stars svg { width: 16px; height: 16px; fill: #f5a623; }
+    .review-text {
+      font-size: 14px;
+      color: var(--dark);
+      line-height: 1.7;
+      font-style: italic;
+      flex: 1;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .review-avatar {
+      width: 36px; height: 36px;
+      background: var(--cream);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      border: 1.5px solid var(--peach);
+    }
+    .review-name { font-size: 13px; font-weight: 700; color: var(--mid); }
+    .review-date { font-size: 11px; color: var(--light); }
+
+    /* ─── TORTA CTA ─── */
+    .cake-cta {
+      background: var(--dark);
+      padding: 80px 48px;
+    }
+    .cake-cta-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .cake-cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--peach);
+      margin-bottom: 12px;
+    }
+    .cake-cta p {
+      font-size: 15px;
+      color: #c48098;
+      line-height: 1.7;
+      max-width: 480px;
+    }
+    .cake-cta-btns { display: flex; gap: 14px; flex-shrink: 0; }
+    .btn-light {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--peach);
+      color: var(--dark);
+      border: none;
+      border-radius: 28px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-light:hover { background: #fde8c8; }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--peach);
+      border: 2px solid rgba(252,212,160,0.4);
+      border-radius: 28px;
+      padding: 12px 26px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--peach); }
+
+    /* ─── INFO ─── */
+    .info-section {
+      background: var(--white);
+      padding: 80px 48px;
+      border-top: 1px solid var(--border);
+    }
+    .info-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+    .info-block-icon {
+      width: 48px; height: 48px;
+      background: var(--cream);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1.5px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .info-block-icon svg { width: 24px; height: 24px; }
+    .info-block h3 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .info-block p, .info-block address {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.8;
+      font-style: normal;
+    }
+    .info-block a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+    /* ─── MAP ─── */
+    .map-iframe {
+      width: 100%;
+      height: 185px;
+      border: 0;
+      border-radius: 14px;
+      margin-top: 16px;
+      display: block;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--peach);
+    }
+    footer p {
+      font-size: 13px;
+      color: #8a6040;
+    }
+    .footer-links {
+      display: flex; gap: 24px; list-style: none;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: #8a6040;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--peach); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-text { animation: fadeUp 0.7s ease both; }
+    .hero-visual { animation: fadeUp 0.7s 0.2s ease both; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .hero-inner { flex-direction: column; text-align: center; }
+      .hero h1 { font-size: 40px; }
+      .hero-sub { max-width: 100%; }
+      .hero-btns { justify-content: center; }
+      section { padding: 60px 24px; }
+      .menu-grid { grid-template-columns: 1fr 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .cake-cta-inner { flex-direction: column; text-align: center; }
+      .cake-cta-btns { justify-content: center; }
+      .info-inner { grid-template-columns: 1fr; gap: 32px; }
+      .badges-section { padding: 16px 24px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+<style>
+    /* ─── DEMO WATERMARK ─── */
+    .demo-banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: linear-gradient(90deg, #c2185b, #e91e8c);
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-family: "Nunito", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 2px 12px rgba(194,24,91,0.3);
+    }
+    .demo-banner a {
+      color: #fff;
+      text-decoration: underline;
+      font-weight: 700;
+    }
+    .demo-banner .demo-badge {
+      background: rgba(255,255,255,0.25);
+      border-radius: 12px;
+      padding: 2px 10px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .demo-watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-35deg);
+      font-family: "Playfair Display", serif;
+      font-size: 96px;
+      font-weight: 700;
+      color: rgba(194,24,91,0.06);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 9998;
+      user-select: none;
+      letter-spacing: 8px;
+    }
+    /* posunut nav kvoli banneru */
+    nav { top: 40px !important; }
+    .hero { padding-top: 144px !important; }
+</style>
+</head>
+<body>
+<div class="demo-banner">
+  <span class="demo-badge">⚠ Demo</span>
+  Táto stránka je chránená autorskými právami. Akékoľvek komerčné použitie bez súhlasu autora je zakázané.
+  <span class="demo-badge">© 2026</span>
+</div>
+<div class="demo-watermark">DEMO</div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <span class="nav-logo">Mily</span>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#o-nas">O nás</a></li>
+    <li><a href="#recenzie">Recenzie</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <button class="nav-cta">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+    Objednaj tortu
+  </button>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Centrum Prešova · Hlavná 75
+      </div>
+      <h1>Sladké chvíle<br>s <em>Mily</em></h1>
+      <p class="hero-sub">Čerstvé koláče, voňavá káva a úsmev, ktorý ti spríjemní deň. Príď k nám — máme aj bezlepkové a bezlaktózové dobroty!</p>
+      <div class="hero-btns">
+        <a href="#menu" class="btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+          Pozri menu
+        </a>
+        <a href="#kontakt" class="btn-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Nájdi nás
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-circle">
+        <img
+          src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=600&h=600&q=80"
+          alt="Jahodová torta"
+          loading="eager"
+        >
+      </div>
+      <div class="rating-pill">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        4,3 · 164 recenzií
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BADGES ─── -->
+<div class="badges-section">
+  <div class="badges-inner">
+    <div class="badge">
+      <!-- leaf / wheat-free icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      Bezlepkové
+    </div>
+    <div class="badge">
+      <!-- drop / dairy-free icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="12" y1="19" x2="12.01" y2="19"/></svg>
+      Bezlaktózové
+    </div>
+    <div class="badge">
+      <!-- star / kids corner -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Detský kútik
+    </div>
+    <div class="badge">
+      <!-- gift box / custom cakes -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      Torty na zákazku
+    </div>
+    <div class="badge">
+      <!-- map pin / location -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Centrum mesta
+    </div>
+  </div>
+</div>
+
+<!-- ─── MENU ─── -->
+<section class="menu-section" id="menu">
+  <div class="section-inner">
+    <div class="section-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+      Naše špeciality
+    </div>
+    <h2 class="section-title">Čo u nás nájdeš</h2>
+    <p class="section-sub">Každý deň čerstvé, s láskou pripravené dobroty pre celú rodinu.</p>
+
+    <div class="menu-grid">
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=480&h=220&q=80" alt="Zákusky a torty" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Zákusky &amp; torty</h3>
+          <p>Punčový, smotanový pohár, cheesecake, Milka torta a ďalšie — čerstvé každý deň.</p>
+          <span class="menu-tag">Bestseller</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=480&h=220&q=80" alt="Káva s latte art" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Káva &amp; čaj</h3>
+          <p>Silná poctivá káva, latte, kapučíno. Pečené čaje v rôznych príchutiach.</p>
+          <span class="menu-tag">Obľúbené</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=480&h=220&q=80" alt="Zmrzlina" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Zmrzlina &amp; poháre</h3>
+          <p>Lahodná zmrzlina v rôznych príchutiach, smotanové poháre so sezónnymi topping-mi.</p>
+          <span class="menu-tag">Letný hit</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=480&h=220&q=80" alt="Palacinky" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Palacinky</h3>
+          <p>Poskladaj si vlastnú palacinku — vyber si náplň aj prílohy podľa chuti.</p>
+          <span class="menu-tag">Na mieru</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=480&h=220&q=80" alt="Miešané drinky" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Miešané drinky</h3>
+          <p>Mojito, piňa colada, limonády a ďalšie osviežujúce nealko aj alko drinky.</p>
+          <span class="menu-tag">Nové</span>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-img">
+          <img src="https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=480&h=220&q=80" alt="Horúca čokoláda" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <h3>Horúca čokoláda</h3>
+          <p>Viac druhov horúcej čokolády — mliečna, horká, biela, s príchuťami.</p>
+          <span class="menu-tag">Zimný hit</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section class="features-section" id="o-nas">
+  <div class="section-inner">
+    <div class="section-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Prečo Mily
+    </div>
+    <h2 class="section-title">Miesto, kde sa cítiš doma</h2>
+    <p class="section-sub">Viac ako 7 rokov prinášame radosť do Prešova. Tu je pár dôvodov, prečo sa k nám ľudia radi vracajú.</p>
+
+    <div class="features-grid">
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- smile / friendly staff -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <div>
+          <h3>Milá obsluha s úsmevom</h3>
+          <p>Naše pani v cukrárni vás vždy privítajú s úsmevom. Príjemný personál je to, čo zákazníci spomínajú najčastejšie.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- sun / warm atmosphere -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </div>
+        <div>
+          <h3>Útulná atmosféra</h3>
+          <p>Príjemné prostredie v zelených farbách, nový nábytok a citáty na stenách vytvárajú perfektné miesto na oddych.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- check-circle / allergy friendly -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <h3>Bezlepkové &amp; bezlaktózové</h3>
+          <p>Špeciálne koláče a torty pre alergikov — dokonca aj narodeninové torty na zákazku bez lepku a laktózy.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- users / family friendly -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <h3>Vhodné pre celú rodinu</h3>
+          <p>Detský kútik s trampolínou, priestor pre kočiare — ideálne miesto na výlet s deťmi v centre mesta.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- tag / fair prices -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        </div>
+        <div>
+          <h3>Férové ceny</h3>
+          <p>Výborná kvalita za rozumnú cenu. Zákazníci opakujú, že Mily ponúka najlepší pomer ceny a kvality v centre.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon-wrap">
+          <!-- refresh / rotating menu -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+        </div>
+        <div>
+          <h3>Ponuka sa obmieňa</h3>
+          <p>Pravidelné novinky v menu a sezónne špeciality — vždy tu nájdeš niečo nové na objavovanie.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── REVIEWS ─── -->
+<section class="reviews-section" id="recenzie">
+  <div class="section-inner">
+    <div class="section-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Google recenzie
+    </div>
+    <h2 class="section-title">Čo hovoria naši hostia</h2>
+    <p class="section-sub">4,3 hviezdy z 164 recenzií. Tu je pár príbehov priamo od zákazníkov.</p>
+
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Príjemné posedenie pri kávičke a výbornom koláčiku za úžasné ceny. Radi sa sem vrátime!"</p>
+        <div class="review-author">
+          <div class="review-avatar">AP</div>
+          <div>
+            <div class="review-name">Aťka P.</div>
+            <div class="review-date">Miestny sprievodca</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Táto cukráreň mne a mojej rodine prirástla k srdci. Rodinná atmosféra, kde máte pocit, že patríte."</p>
+        <div class="review-author">
+          <div class="review-avatar">KK</div>
+          <div>
+            <div class="review-name">Kristína K.</div>
+            <div class="review-date">Miestny sprievodca</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Moja 'go to' destinácia v centre. Najlepšia cukráreň v Prešove podľa mňa. Ceny sú super!"</p>
+        <div class="review-author">
+          <div class="review-avatar">VN</div>
+          <div>
+            <div class="review-name">Viktória N.</div>
+            <div class="review-date">Miestny sprievodca</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Bohatý výber zákuskov, limonád. Skvelé pohodlné posedenie s milým personálom, ktorému nikdy nechýba úsmev."</p>
+        <div class="review-author">
+          <div class="review-avatar">T</div>
+          <div>
+            <div class="review-name">Tomáš</div>
+            <div class="review-date">Miestny sprievodca · 211 recenzií</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Ďakujem za zhotovenie bezlepkovej a bezlaktózovej narodeninovej torty. Chutila celej rodine!"</p>
+        <div class="review-author">
+          <div class="review-avatar">AB</div>
+          <div>
+            <div class="review-name">Angela B.</div>
+            <div class="review-date">Miestny sprievodca</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Výborný zmrzlinový pohár a poctivá silná káva za rozumnú cenu. Útulné, priateľské miesto."</p>
+        <div class="review-author">
+          <div class="review-avatar">MZ</div>
+          <div>
+            <div class="review-name">Milan Z.</div>
+            <div class="review-date">Miestny sprievodca · 62 recenzií</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── TORTA CTA ─── -->
+<div class="cake-cta">
+  <div class="cake-cta-inner">
+    <div>
+      <h2>Torta na zákazku?</h2>
+      <p>Urobíme ti tortu presne podľa tvojich predstáv — klasickú, bezlepkovú, bezlaktózovú, s fondánom alebo s fotkou. Zavolaj nám alebo príď osobne.</p>
+    </div>
+    <div class="cake-cta-btns">
+      <a href="tel:0905640879" class="btn-light">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.64A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.09 6.09l1.27-.83a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Zavolaj nám
+      </a>
+      <a href="#kontakt" class="btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Kde nás nájdeš
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── INFO ─── -->
+<section class="info-section" id="kontakt">
+  <div class="info-inner">
+
+    <div class="info-block">
+      <div class="info-block-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <h3>Adresa</h3>
+      <address>
+        Hlavná 2908/75<br>
+        080 01 Prešov<br>
+        (blízko kostola, centrum mesta)
+      </address>
+      <iframe
+        class="map-iframe"
+        src="https://maps.google.com/maps?q=Cukr%C3%A1re%C5%88+Mily+Hlavna+75+Pre%C5%A1ov+Slovakia&output=embed&hl=sk&z=16"
+        allowfullscreen=""
+        loading="lazy"
+        title="Cukráreň Mily – mapa"
+      ></iframe>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <h3>Otváracie hodiny</h3>
+      <p>
+        <strong>Pondelok – Piatok</strong><br>
+        8:00 – 20:00<br><br>
+        <strong>Sobota</strong><br>
+        9:00 – 20:00<br><br>
+        <strong>Nedeľa</strong><br>
+        Zatvorené
+      </p>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.64A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.09 6.09l1.27-.83a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <h3>Kontakt</h3>
+      <p>
+        <a href="tel:0905640879">0905 640 879</a><br><br>
+        Torty na zákazku<br>
+        (bezlepkové, bezlaktózové,<br>
+        s fondánom, s fotkou)
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <span class="nav-logo footer-logo">Mily</span>
+  <p>© 2026 Cukráreň Mily · Prešov · Vytvorené s láskou</p>
+  <ul class="footer-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#o-nas">O nás</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
