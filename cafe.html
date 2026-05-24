@@ -1,4 +1,1231 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mocha Café — Prešov · Specialty coffee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #f4ede1;       /* warm cream */
+  --bg-deep:  #ece2d1;       /* deeper cream */
+  --paper:    #faf6ed;       /* lifted card */
+  --ink:      #1a1410;       /* near-black coffee */
+  --ink-2:    #3a2e22;
+  --mud:      #6b5a48;       /* muted brown */
+  --line:     #d8cdb9;
+  --warm:     #8a5a36;       /* signature warm */
+  --warm-dk:  #5a3a20;
+  --gold:     #b08653;
+  --espresso: #2a1d12;
+
+  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --sans:  'Inter Tight', system-ui, -apple-system, sans-serif;
+  --mono:  'JetBrains Mono', ui-monospace, monospace;
+}
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ── reusable type ─────────────────────────── */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--warm);
+  font-weight: 500;
+}
+.eyebrow .num { color: var(--mud); margin-right: .6em; }
+.serif { font-family: var(--serif); font-weight: 300; letter-spacing: -.01em; }
+.serif em, .it { font-style: italic; font-weight: 300; }
+
+/* ── demo banner (top, slim) ───────────────── */
+.demo {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: var(--espresso); color: var(--bg);
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+  padding: .55rem 1.25rem;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+}
+.demo .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); display: inline-block; animation: pulse 2.6s ease-in-out infinite; }
+.demo a { color: var(--gold); border-bottom: 1px solid rgba(176,134,83,.4); padding-bottom: 1px; }
+.demo .demo-sep { opacity: .35; }
+@keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+
+/* ── nav ───────────────────────────────────── */
+nav {
+  position: fixed; top: 30px; left: 0; right: 0; z-index: 150;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 1.1rem 2.5rem;
+  background: rgba(244,237,225,0.82);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  border-bottom: 1px solid var(--line);
+  transition: padding .25s ease;
+}
+nav.scrolled { padding: .75rem 2.5rem; }
+.logo {
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 400;
+  letter-spacing: -.01em; display: flex; align-items: baseline; gap: .4rem;
+}
+.logo em { color: var(--warm); }
+.logo .mark {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .2em;
+  color: var(--mud); text-transform: uppercase; margin-left: .4rem;
+  align-self: center; padding-left: .6rem; border-left: 1px solid var(--line);
+}
+.nav-links { display: flex; gap: 2.2rem; list-style: none; justify-self: center; }
+.nav-links a {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-2); position: relative;
+  transition: color .2s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -6px;
+  height: 1px; background: var(--warm); transform: scaleX(0); transform-origin: left;
+  transition: transform .3s ease;
+}
+.nav-links a:hover { color: var(--warm); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-right { justify-self: end; display: flex; align-items: center; gap: 1.25rem; }
+.nav-lang { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; color: var(--mud); }
+.nav-lang b { color: var(--ink); }
+
+.btn-reserve {
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .65rem 1.15rem;
+  background: var(--ink); color: var(--bg);
+  border-radius: 999px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  transition: background .2s, transform .2s;
+}
+.btn-reserve:hover { background: var(--warm); transform: translateY(-1px); }
+.btn-reserve .arr { font-family: var(--sans); font-size: 14px; line-height: 0; }
+
+/* ── HERO ──────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: calc(100vh - 30px);
+  padding: 11rem 2.5rem 4rem;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 4rem;
+  align-items: end;
+  overflow: hidden;
+}
+.hero-bg-grain {
+  position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(138,90,54,.06) 0, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(138,90,54,.08) 0, transparent 55%);
+}
+.hero-meta {
+  position: absolute; top: 7.5rem; left: 2.5rem; right: 2.5rem;
+  display: flex; justify-content: space-between;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--mud);
+}
+.hero-meta .l, .hero-meta .r { display: flex; gap: 1.5rem; }
+.hero-meta b { color: var(--ink); font-weight: 500; }
+
+.hero-headline {
+  position: relative; z-index: 2;
+  align-self: end;
+}
+.hero h1 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(4rem, 9.5vw, 9.5rem);
+  line-height: 1.12;
+  letter-spacing: -.025em;
+  color: var(--ink);
+}
+.hero h1 .ln { display: block; }
+.hero h1 em { font-style: italic; color: var(--warm); }
+.hero h1 .amp { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--warm); }
+
+.hero-sub {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 1.25rem;
+  max-width: 520px;
+}
+.hero-sub .rule {
+  border-top: 1px solid var(--ink); margin-top: 11px; height: 1px;
+}
+.hero-sub p { font-size: 15px; line-height: 1.65; color: var(--ink-2); max-width: 380px; }
+.hero-actions {
+  margin-top: 2.2rem; display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .6rem;
+  padding: 1rem 1.7rem;
+  background: var(--ink); color: var(--bg);
+  border-radius: 999px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  transition: background .25s, transform .25s, padding-right .25s;
+}
+.btn-primary:hover { background: var(--warm); padding-right: 2rem; }
+.btn-primary .arr { display: inline-block; transition: transform .25s; font-size: 16px; line-height: 0; }
+.btn-primary:hover .arr { transform: translateX(4px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink-2); border-bottom: 1px solid var(--ink-2); padding-bottom: 4px;
+}
+.btn-ghost:hover { color: var(--warm); border-color: var(--warm); }
+
+/* Hero visual / parallax stack */
+.hero-visual {
+  position: relative;
+  align-self: end;
+  height: clamp(420px, 64vh, 640px);
+  display: grid;
+}
+.hv-card {
+  position: relative;
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--espresso);
+  will-change: transform;
+}
+.hv-img {
+  position: absolute; inset: -8% 0;
+  background:
+    linear-gradient(180deg, rgba(26,14,6,.15) 0%, rgba(26,14,6,.55) 100%),
+    url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1400&q=80&auto=format&fit=crop') center/cover no-repeat,
+    linear-gradient(160deg, #6f4827 0%, #3a2310 50%, #1a0e06 100%);
+  will-change: transform;
+}
+.about-img-wrap .hv-img {
+  background:
+    linear-gradient(180deg, rgba(26,14,6,.1) 0%, rgba(26,14,6,.45) 100%),
+    url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=1400&q=80&auto=format&fit=crop') center/cover no-repeat;
+}
+.hv-stripes {
+  position: absolute; inset: 0; opacity: .08;
+  background: repeating-linear-gradient( 45deg, transparent 0, transparent 6px, #f4ede1 6px, #f4ede1 7px);
+}
+.hv-overlay {
+  position: absolute; left: 1.5rem; right: 1.5rem; bottom: 1.5rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  color: rgba(244,237,225,.85);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+}
+.hv-overlay .caption { font-family: var(--serif); font-style: italic; font-size: 1.3rem; letter-spacing: 0; text-transform: none; color: rgba(244,237,225,.95); max-width: 240px; line-height: 1.2; }
+.hv-overlay .meta-r { text-align: right; color: rgba(244,237,225,.55); }
+.hv-overlay .meta-r b { color: var(--gold); font-weight: 500; display: block; margin-bottom: .25rem; font-size: 11px;}
+.hv-corner {
+  position: absolute; top: 1.25rem; left: 1.25rem;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(244,237,225,.55);
+  display: flex; align-items: center; gap: .6rem;
+}
+.hv-corner .blink { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2.2s ease-in-out infinite; }
+
+/* placeholder note overlay (the “drop product shot here” cue) */
+.ph-label {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(244,237,225,.4);
+  border: 1px dashed rgba(244,237,225,.25);
+  padding: .5rem .9rem; border-radius: 2px;
+}
+
+/* vertical run on hero side */
+.hero-vrun {
+  position: absolute; right: 1rem; top: 50%; transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .35em; text-transform: uppercase;
+  color: var(--mud);
+}
+.hero-scroll {
+  position: absolute; bottom: 1.5rem; left: 2.5rem;
+  display: flex; align-items: center; gap: .75rem;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--mud);
+}
+.hero-scroll .ln { width: 36px; height: 1px; background: var(--mud); display: inline-block; }
+
+/* ── marquee strip ─────────────────────────── */
+.strip {
+  background: var(--ink); color: var(--bg);
+  padding: 1.1rem 0; overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.strip-inner {
+  display: flex; gap: 2.5rem; white-space: nowrap;
+  font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 1.65rem;
+  animation: marq 28s linear infinite;
+}
+.strip-inner span { display: inline-flex; align-items: center; gap: 2.5rem; }
+.strip-inner i { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; display: inline-block; font-style: normal; }
+@keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── section base ──────────────────────────── */
+.section { padding: 7rem 2.5rem; position: relative; }
+.section.alt { background: var(--bg-deep); }
+.section.dark { background: var(--espresso); color: var(--bg); }
+.section.dark .eyebrow { color: var(--gold); }
+.section.dark .eyebrow .num { color: rgba(244,237,225,.45); }
+.sec-head {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+  align-items: end; margin-bottom: 4rem;
+  padding-bottom: 2rem; border-bottom: 1px solid var(--line);
+}
+.section.dark .sec-head { border-color: rgba(244,237,225,.15); }
+.sec-title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  line-height: 1; letter-spacing: -.02em;
+}
+.sec-title em { color: var(--warm); font-style: italic; }
+.section.dark .sec-title em { color: var(--gold); }
+.sec-aside { color: var(--mud); font-size: 14px; line-height: 1.6; max-width: 360px; justify-self: end; }
+.section.dark .sec-aside { color: rgba(244,237,225,.65); }
+
+/* ── MENU ──────────────────────────────────── */
+.menu-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 4rem;
+}
+.menu-side {
+  position: sticky; top: 8rem; align-self: start;
+}
+.menu-side h3 {
+  font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 2.2rem;
+  line-height: 1.1; color: var(--ink); margin-bottom: 1.25rem;
+}
+.menu-side p { color: var(--mud); font-size: 14px; max-width: 320px; line-height: 1.65; margin-bottom: 1.75rem; }
+.menu-tabs { list-style: none; display: flex; flex-direction: column; gap: .15rem; border-top: 1px solid var(--line); }
+.menu-tabs li {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .85rem 0; border-bottom: 1px solid var(--line);
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-2); cursor: pointer; transition: color .2s, padding-left .25s;
+}
+.menu-tabs li .ct { color: var(--mud); }
+.menu-tabs li:hover, .menu-tabs li.active { color: var(--warm); padding-left: .75rem; }
+.menu-tabs li.active .ct { color: var(--warm); }
+
+.menu-list {
+  display: flex; flex-direction: column;
+}
+.menu-cat { margin-bottom: 3.5rem; }
+.menu-cat:last-child { margin-bottom: 0; }
+.menu-cat-head {
+  display: flex; align-items: baseline; gap: 1.25rem;
+  padding-bottom: 1rem; margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.menu-cat-head h4 {
+  font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.7rem;
+  color: var(--ink); white-space: nowrap;
+}
+.menu-cat-head .ct {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--mud);
+}
+.menu-item {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 1.5rem;
+  padding: 1.4rem 0;
+  border-bottom: 1px dashed var(--line);
+  align-items: baseline;
+  transition: background .25s, padding-left .25s;
+}
+.menu-item:hover { padding-left: .5rem; background: linear-gradient(90deg, rgba(138,90,54,.04), transparent 60%); }
+.menu-item .mi-num {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--mud);
+}
+.mi-body { display: flex; flex-direction: column; gap: .35rem; }
+.mi-name {
+  font-family: var(--serif); font-size: 1.55rem; font-weight: 400; color: var(--ink); line-height: 1;
+  display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap;
+}
+.mi-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--warm); border: 1px solid var(--line); padding: .25rem .45rem; border-radius: 2px;
+}
+.mi-desc { font-size: 13px; color: var(--mud); line-height: 1.55; max-width: 460px; }
+.mi-meta {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--mud); display: flex; gap: 1rem; margin-top: .2rem;
+}
+.mi-price {
+  font-family: var(--serif); font-style: italic; font-size: 1.4rem;
+  color: var(--warm); white-space: nowrap;
+}
+
+/* ── GALLERY (editorial collage) ─────────── */
+.gallery-section { padding: 7rem 2.5rem; background: var(--bg); }
+.gallery {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1.1fr;
+  grid-template-rows: 280px 220px;
+  gap: 1.25rem;
+}
+.g-cell {
+  position: relative; overflow: hidden; border-radius: 4px; background: #2a1d12;
+}
+.g-cell .img {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
+}
+.g-cell:hover .img { transform: scale(1.06); }
+.g-cell .cap {
+  position: absolute; left: 1rem; bottom: 1rem; right: 1rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  color: rgba(244,237,225,.85);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0,0,0,.4);
+  z-index: 2;
+}
+.g-cell .cap em { font-family: var(--serif); font-style: italic; font-size: 1.1rem; letter-spacing: 0; text-transform: none; color: #fff; }
+.g-cell::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, transparent 50%, rgba(26,14,6,.55) 100%);
+}
+.g-1 { grid-column: 1; grid-row: 1 / span 2; }
+.g-2 { grid-column: 2; grid-row: 1; }
+.g-3 { grid-column: 3; grid-row: 1; }
+.g-4 { grid-column: 2 / span 2; grid-row: 2; }
+.g-1 .img { background-image: linear-gradient(180deg, rgba(26,14,6,.1), rgba(26,14,6,.3)), url('https://images.unsplash.com/photo-1442550528053-c431ecb55509?w=1200&q=80&auto=format&fit=crop'); }
+.g-2 .img { background-image: linear-gradient(180deg, rgba(26,14,6,.1), rgba(26,14,6,.35)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop'); }
+.g-3 .img { background-image: linear-gradient(180deg, rgba(26,14,6,.1), rgba(26,14,6,.35)), url('https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=900&q=80&auto=format&fit=crop'); }
+.g-4 .img { background-image: linear-gradient(180deg, rgba(26,14,6,.1), rgba(26,14,6,.4)), url('https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1400&q=80&auto=format&fit=crop'); }
+@media (max-width: 900px) {
+  .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 180px 180px; }
+  .g-1 { grid-column: 1 / span 2; grid-row: 1; }
+  .g-2 { grid-column: 1; grid-row: 2; }
+  .g-3 { grid-column: 2; grid-row: 2; }
+  .g-4 { grid-column: 1 / span 2; grid-row: 3; }
+}
+
+/* ── ABOUT (editorial split) ───────────────── */
+.about {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: stretch;
+}
+.about-img-wrap {
+  position: relative; aspect-ratio: 4/5; border-radius: 4px; overflow: hidden;
+  background: #2a1d12;
+}
+.about-img-caption {
+  position: absolute; bottom: 1.25rem; left: 1.25rem; right: 1.25rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  color: rgba(244,237,225,.6);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+}
+.about-text { display: flex; flex-direction: column; justify-content: center; }
+.about-text .eyebrow { margin-bottom: 1.5rem; }
+.about-text h2 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(2.4rem, 4.8vw, 4rem);
+  line-height: 1; letter-spacing: -.02em; margin-bottom: 2rem;
+}
+.about-text h2 em { color: var(--warm); }
+.about-body p {
+  font-size: 16px; line-height: 1.75; color: var(--ink-2); max-width: 460px;
+}
+.about-body p + p { margin-top: 1.1rem; }
+.about-body p::first-letter {}
+.about-quote {
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: 1.6rem; line-height: 1.3; color: var(--ink);
+  margin: 2rem 0; padding-left: 1.25rem;
+  border-left: 2px solid var(--warm); max-width: 460px;
+}
+.about-quote cite { display: block; margin-top: .6rem; font-style: normal; font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--mud); }
+.about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; padding-top: 1.75rem; border-top: 1px solid var(--line); }
+.stat-num { font-family: var(--serif); font-size: 2.4rem; font-weight: 300; color: var(--warm); line-height: 1; }
+.stat-label { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--mud); margin-top: .5rem; }
+
+/* ── RESERVE BLOCK (dark, premium) ─────────── */
+.reserve {
+  position: relative; overflow: hidden;
+}
+.reserve::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(176,134,83,.18) 0%, transparent 50%),
+    radial-gradient(circle at 85% 80%, rgba(138,90,54,.15) 0%, transparent 55%);
+}
+.reserve-grid {
+  display: grid; grid-template-columns: 1.1fr .9fr; gap: 5rem; align-items: center;
+  position: relative; z-index: 2;
+}
+.reserve h2 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+  line-height: 1; letter-spacing: -.02em;
+}
+.reserve h2 em { color: var(--gold); }
+.reserve-lead {
+  margin-top: 2rem; max-width: 460px; color: rgba(244,237,225,.7); font-size: 15px; line-height: 1.7;
+}
+
+.reserve-card {
+  background: rgba(244,237,225,.04);
+  border: 1px solid rgba(244,237,225,.15);
+  border-radius: 6px; padding: 2rem;
+  backdrop-filter: blur(6px);
+}
+.reserve-card .label { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.reserve-card .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(244,237,225,.12); border-radius: 4px; overflow: hidden; margin-bottom: 1px; }
+.reserve-card .field-row.full { grid-template-columns: 1fr; }
+.reserve-card .field {
+  background: rgba(26,20,16,.6); padding: 1rem 1.1rem;
+  display: flex; flex-direction: column; gap: .35rem;
+}
+.reserve-card .field span { font-family: var(--mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(244,237,225,.45); }
+.reserve-card .field b { font-family: var(--serif); font-weight: 400; font-size: 1.1rem; color: var(--bg); }
+.reserve-card .field b em { font-style: italic; color: var(--gold); font-weight: 300; }
+.reserve-card .cta-row { display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem; }
+.btn-gold {
+  display: inline-flex; align-items: center; gap: .7rem;
+  padding: 1rem 1.7rem;
+  background: var(--gold); color: var(--espresso);
+  border-radius: 999px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  font-weight: 500;
+  transition: background .2s, transform .2s, padding-right .2s;
+  border: none; cursor: pointer;
+}
+.btn-gold:hover { background: var(--bg); padding-right: 2rem; }
+.btn-gold .arr { transition: transform .2s; font-size: 16px; line-height: 0; }
+.btn-gold:hover .arr { transform: translateX(4px); }
+.reserve-card .terms { font-family: var(--mono); font-size: 10px; letter-spacing: .15em; color: rgba(244,237,225,.45); text-transform: uppercase; }
+
+/* ── HOURS + CONTACT ──────────────────────── */
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.info-cell {
+  padding: 2.5rem 2rem;
+  border-right: 1px solid var(--line);
+}
+.info-cell:last-child { border-right: 0; }
+.info-cell h4 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.6rem; color: var(--ink); margin-bottom: 1.5rem; }
+.hours-list { list-style: none; display: flex; flex-direction: column; }
+.hours-list li {
+  display: flex; justify-content: space-between; padding: .75rem 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 14px;
+}
+.hours-list li:last-child { border-bottom: 0; }
+.hours-list .day { color: var(--ink-2); }
+.hours-list .time { font-family: var(--mono); font-size: 12px; color: var(--mud); letter-spacing: .04em; }
+.hours-list .today { color: var(--warm); font-weight: 500; }
+.hours-list .today .day::before { content: '●'; color: var(--warm); margin-right: .5rem; font-size: 8px; vertical-align: middle; }
+.hours-list .today .time { color: var(--warm); font-weight: 500; }
+
+.contact-list { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
+.contact-list li { font-size: 14px; line-height: 1.55; }
+.contact-list .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--mud); display: block; margin-bottom: .35rem; }
+.contact-list .val { color: var(--ink); }
+.contact-list .val.big { font-family: var(--serif); font-size: 1.2rem; color: var(--ink); }
+
+.find-block { display: flex; flex-direction: column; gap: 1.25rem; }
+.find-map {
+  position: relative; aspect-ratio: 4/3; border-radius: 4px; overflow: hidden;
+  background: var(--bg-deep);
+  border: 1px solid var(--line);
+}
+.find-map .grid-lines {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: .5;
+}
+.find-map .road1, .find-map .road2 {
+  position: absolute; background: var(--warm); opacity: .15;
+}
+.find-map .road1 { left: -10%; right: -10%; top: 55%; height: 22px; transform: rotate(-7deg); }
+.find-map .road2 { top: -10%; bottom: -10%; left: 38%; width: 18px; transform: rotate(8deg); }
+.find-map .pin {
+  position: absolute; top: 48%; left: 42%;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--warm); border: 3px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--warm), 0 0 0 12px rgba(138,90,54,.12);
+  animation: ping 2.6s ease-out infinite;
+}
+@keyframes ping {
+  0%   { box-shadow: 0 0 0 1px var(--warm), 0 0 0 0 rgba(138,90,54,.4); }
+  100% { box-shadow: 0 0 0 1px var(--warm), 0 0 0 32px rgba(138,90,54,0); }
+}
+.find-map .pin-label {
+  position: absolute; top: 42%; left: 48%;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--warm); white-space: nowrap;
+}
+
+/* ── FOOTER ───────────────────────────────── */
+footer {
+  background: var(--espresso); color: var(--bg);
+  padding: 5rem 2.5rem 2rem;
+}
+.foot-top {
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 2.5rem;
+  padding-bottom: 3rem; border-bottom: 1px solid rgba(244,237,225,.14);
+}
+.foot-logo {
+  font-family: var(--serif); font-weight: 300; font-size: 3rem; line-height: .95; letter-spacing: -.02em;
+}
+.foot-logo em { color: var(--gold); }
+.foot-tag { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(244,237,225,.55); margin-top: 1rem; max-width: 280px; line-height: 1.7; }
+.foot-col h5 { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+.foot-col ul { list-style: none; display: flex; flex-direction: column; gap: .7rem; }
+.foot-col li { font-size: 14px; color: rgba(244,237,225,.75); }
+.foot-col li a:hover { color: var(--gold); }
+.foot-bottom {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center;
+  padding-top: 1.75rem;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(244,237,225,.45);
+}
+.foot-bottom .center { text-align: center; }
+.foot-bottom .right { text-align: right; }
+.foot-bottom a { color: var(--gold); }
+
+/* ── reveal ───────────────────────────────── */
+.fi { opacity: 0; transform: translateY(20px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+.fi.in { opacity: 1; transform: none; }
+.fi.d1 { transition-delay: .08s; }
+.fi.d2 { transition-delay: .16s; }
+.fi.d3 { transition-delay: .24s; }
+
+/* ── responsive ───────────────────────────── */
+@media (max-width: 1100px) {
+  .hero { grid-template-columns: 1fr; gap: 3rem; padding: 10rem 1.75rem 3rem; }
+  .hero-meta { position: static; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem; }
+  .hero-visual { height: 380px; }
+  .hero-vrun { display: none; }
+  .hero-scroll { display: none; }
+  .menu-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+  .menu-side { position: static; }
+  .about { grid-template-columns: 1fr; }
+  .about-img-wrap { aspect-ratio: 4/3; }
+  .reserve-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .info-grid { grid-template-columns: 1fr; }
+  .info-cell { border-right: 0; border-bottom: 1px solid var(--line); }
+  .info-cell:last-child { border-bottom: 0; }
+  .foot-top { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 720px) {
+  nav { padding: 1rem 1.25rem; grid-template-columns: 1fr auto; }
+  .nav-links, .nav-lang { display: none; }
+  .demo { padding: .5rem 1rem; font-size: 10px; }
+  .demo .demo-sep, .demo .hide-sm { display: none; }
+  .section { padding: 5rem 1.25rem; }
+  .hero { padding: 9rem 1.25rem 3rem; }
+  .sec-head { grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
+  .sec-aside { justify-self: start; }
+  .menu-item { grid-template-columns: 24px 1fr auto; gap: 1rem; }
+  .mi-name { font-size: 1.3rem; }
+  .mi-price { font-size: 1.2rem; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .foot-top { grid-template-columns: 1fr; gap: 2rem; }
+  .foot-logo { font-size: 2.2rem; }
+  .foot-bottom { grid-template-columns: 1fr; gap: .75rem; text-align: left; }
+  .foot-bottom .center, .foot-bottom .right { text-align: left; }
+  .strip-inner { font-size: 1.3rem; gap: 1.5rem; }
+  .reserve-card { padding: 1.5rem; }
+  .reserve-card .field-row { grid-template-columns: 1fr; }
+  .btn-reserve { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- DEMO BANNER -->
+<div class="demo">
+  <span class="dot"></span>
+  <span>Demo · NS web</span>
+  <span class="demo-sep">/</span>
+  <span class="hide-sm">Objednaj svoju vlastnú stránku</span>
+  <span class="demo-sep">→</span>
+  <a href="mailto:ns.cehelsky@gmail.com">ns.cehelsky@gmail.com</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo" href="#"><span><em>Mocha</em> Café</span><span class="mark">EST · 2019</span></a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#o-nas">O nás</a></li>
+    <li><a href="#info">Návšteva</a></li>
+    <li><a href="#rezervacia">Rezervácia</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-lang"><b>SK</b> / EN</div>
+    <a href="#rezervacia" class="btn-reserve">Rezervovať <span class="arr">→</span></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-grain"></div>
+
+  <div class="hero-meta">
+    <div class="l">
+      <span><b>N</b> 49°00′</span>
+      <span><b>E</b> 21°14′</span>
+      <span>Prešov · SK</span>
+    </div>
+    <div class="r">
+      <span>Issue 07 — Spring '26</span>
+    </div>
+  </div>
+
+  <div class="hero-headline">
+    <div class="eyebrow"><span class="num">01 —</span> Specialty coffee · Prešov</div>
+    <h1 style="margin-top: 1.5rem">
+      <span class="ln">Káva,</span>
+      <span class="ln">ktorá <em>spomalí</em></span>
+      <span class="ln">váš deň.</span>
+    </h1>
+    <div class="hero-sub">
+      <span class="rule"></span>
+      <p>Tichá kaviareň v srdci Prešova. Výberová káva od malých európskych pražiarní, ručne pripravená každé ráno od siedmej.</p>
+    </div>
+    <div class="hero-actions">
+      <a href="#rezervacia" class="btn-primary">Rezervovať stôl <span class="arr">→</span></a>
+      <a href="#menu" class="btn-ghost">Pozrieť menu</a>
+    </div>
+  </div>
+
+  <div class="hero-visual" id="heroVisual">
+    <div class="hv-card">
+      <div class="hv-img" id="heroImg"></div>
+      <div class="hv-corner"><span class="blink"></span> Live · 7:00–19:00</div>
+      <div class="hv-overlay">
+        <div class="caption">"Pomaly. <br>Bez náhlenia."</div>
+        <div class="meta-r"><b>№ 001</b>Single-origin<br>Etiópia · Yirgacheffe</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-vrun">scroll · scroll · scroll</div>
+  <div class="hero-scroll"><span class="ln"></span> scroll</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="strip">
+  <div class="strip-inner">
+    <span>Specialty coffee <i></i> Espresso <i></i> Cappuccino <i></i> Flat White <i></i> Latte <i></i> Cold brew <i></i> Single origin <i></i> Pomalá káva <i></i> Slow mornings <i></i></span>
+    <span>Specialty coffee <i></i> Espresso <i></i> Cappuccino <i></i> Flat White <i></i> Latte <i></i> Cold brew <i></i> Single origin <i></i> Pomalá káva <i></i> Slow mornings <i></i></span>
+  </div>
+</div>
+
+<!-- MENU -->
+<section class="section" id="menu">
+  <div class="sec-head fi">
+    <div>
+      <div class="eyebrow"><span class="num">02 —</span> Naša ponuka</div>
+      <h2 class="sec-title" style="margin-top: 1rem">Menu <em>karty</em></h2>
+    </div>
+    <p class="sec-aside">Pražíme dvakrát do týždňa, mlieko od slovenského farmára Kysuca. Ceny vrátane DPH. Alergény na vyžiadanie.</p>
+  </div>
+
+  <div class="menu-wrap">
+    <aside class="menu-side fi">
+      <h3>Káva, ktorú si <em>pamätáte</em>.</h3>
+      <p>Pracujeme s dvomi pražiarňami: La Cabra (Aarhus) a Stories Coffee (Bratislava). Každé zrno má svoju kartičku — opýtajte sa baristu.</p>
+      <ul class="menu-tabs">
+        <li class="active"><span>Espresso bar</span><span class="ct">04</span></li>
+        <li><span>Filtrovaná káva</span><span class="ct">03</span></li>
+        <li><span>Studené nápoje</span><span class="ct">03</span></li>
+        <li><span>Sladké & pečivo</span><span class="ct">04</span></li>
+      </ul>
+    </aside>
+
+    <div class="menu-list">
+
+      <div class="menu-cat fi">
+        <div class="menu-cat-head">
+          <h4>Espresso bar</h4>
+          <span class="ct">— štyri klasiky</span>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 01</div>
+          <div class="mi-body">
+            <div class="mi-name">Espresso <span class="mi-tag">House blend</span></div>
+            <div class="mi-desc">Dvojitý shot. Čokoláda, lieskový oriešok, sušená čerešňa. Pripravené z čerstvo praženého house blendu.</div>
+            <div class="mi-meta"><span>30 ml</span><span>·</span><span>9.2 g</span><span>·</span><span>27 s</span></div>
+          </div>
+          <div class="mi-price">2,20 €</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 02</div>
+          <div class="mi-body">
+            <div class="mi-name">Cappuccino</div>
+            <div class="mi-desc">Espresso, jemne našľahané plnotučné mlieko, tenká vrstva pevnej peny. Klasika podľa talianskeho receptu.</div>
+            <div class="mi-meta"><span>150 ml</span><span>·</span><span>1:2 ratio</span></div>
+          </div>
+          <div class="mi-price">3,00 €</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 03</div>
+          <div class="mi-body">
+            <div class="mi-name">Flat white <span class="mi-tag">obľúbené</span></div>
+            <div class="mi-desc">Dvojité ristretto a hodvábne mikropenené mlieko. Hustá textúra, výrazná káva — pre milovníkov silnej chuti.</div>
+            <div class="mi-meta"><span>180 ml</span><span>·</span><span>1:2.5</span></div>
+          </div>
+          <div class="mi-price">3,20 €</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 04</div>
+          <div class="mi-body">
+            <div class="mi-name">Latte</div>
+            <div class="mi-desc">Jemný shot espressa, krémové mlieko, naliate ako vlna. Najjemnejší zo štvorice — ideálne ráno.</div>
+            <div class="mi-meta"><span>240 ml</span><span>·</span><span>1:4</span></div>
+          </div>
+          <div class="mi-price">3,40 €</div>
+        </div>
+      </div>
+
+      <div class="menu-cat fi">
+        <div class="menu-cat-head">
+          <h4>Filtrovaná káva</h4>
+          <span class="ct">— pomaly, ručne</span>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 05</div>
+          <div class="mi-body">
+            <div class="mi-name">V60 single-origin <span class="mi-tag">denne iné</span></div>
+            <div class="mi-desc">Filter pripravený metódou pour-over. Dnes: Etiópia Yirgacheffe — kvet jasmínu, čierny čaj, citrus.</div>
+            <div class="mi-meta"><span>250 ml</span><span>·</span><span>4 min</span></div>
+          </div>
+          <div class="mi-price">4,20 €</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 06</div>
+          <div class="mi-body">
+            <div class="mi-name">Batch brew</div>
+            <div class="mi-desc">Naša denná várka filtra. Pripravená v Moccamaster, podávaná vždy čerstvá.</div>
+            <div class="mi-meta"><span>200 ml</span></div>
+          </div>
+          <div class="mi-price">2,80 €</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 07</div>
+          <div class="mi-body">
+            <div class="mi-name">AeroPress</div>
+            <div class="mi-desc">Čistá, intenzívna chuť. Skvelá voľba pre objavovanie nových zŕn.</div>
+            <div class="mi-meta"><span>200 ml</span><span>·</span><span>3 min</span></div>
+          </div>
+          <div class="mi-price">3,80 €</div>
+        </div>
+      </div>
+
+      <div class="menu-cat fi">
+        <div class="menu-cat-head">
+          <h4>Studené nápoje</h4>
+          <span class="ct">— pre teplé dni</span>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 08</div>
+          <div class="mi-body">
+            <div class="mi-name">Cold brew</div>
+            <div class="mi-desc">18-hodinová studená infúzia. Sladké, jemné, nízka kyslosť. Vlastný recept.</div>
+          </div>
+          <div class="mi-price">3,50 €</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 09</div>
+          <div class="mi-body">
+            <div class="mi-name">Iced latte</div>
+            <div class="mi-desc">Dvojité espresso, ľad, studené mlieko. Možnosť ovseného alebo mandľového.</div>
+          </div>
+          <div class="mi-price">3,40 €</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 10</div>
+          <div class="mi-body">
+            <div class="mi-name">Domáca limonáda</div>
+            <div class="mi-desc">Sezónne ingrediencie. Aktuálne: bazalka & limetka. Bez pridaného cukru.</div>
+          </div>
+          <div class="mi-price">2,80 €</div>
+        </div>
+      </div>
+
+      <div class="menu-cat fi">
+        <div class="menu-cat-head">
+          <h4>Sladké & pečivo</h4>
+          <span class="ct">— denne čerstvé</span>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 11</div>
+          <div class="mi-body">
+            <div class="mi-name">Croissant</div>
+            <div class="mi-desc">Maslový, francúzska metóda. Doručené ráno od pekárne Antonio.</div>
+          </div>
+          <div class="mi-price">2,50 €</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 12</div>
+          <div class="mi-body">
+            <div class="mi-name">Cinnamon roll</div>
+            <div class="mi-desc">Maslové cesto, škorica, glazúra. Naša najpredávanejšia sladkosť.</div>
+          </div>
+          <div class="mi-price">3,20 €</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 13</div>
+          <div class="mi-body">
+            <div class="mi-name">Avokádový toast</div>
+            <div class="mi-desc">Kváskový chlieb, avokádo, pošírované vajce, mikrobylinky, čili olej.</div>
+          </div>
+          <div class="mi-price">5,90 €</div>
+        </div>
+
+        <div class="menu-item">
+          <div class="mi-num">№ 14</div>
+          <div class="mi-body">
+            <div class="mi-name">Cheesecake <span class="mi-tag">vegan opt.</span></div>
+            <div class="mi-desc">New York štýl, sezónne ovocie. K dispozícii aj rastlinná verzia.</div>
+          </div>
+          <div class="mi-price">3,80 €</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div class="sec-head fi" style="margin-bottom: 3rem">
+    <div>
+      <div class="eyebrow"><span class="num">03 —</span> Galéria</div>
+      <h2 class="sec-title" style="margin-top: 1rem">V <em>kaviarni</em></h2>
+    </div>
+    <p class="sec-aside">Ranne svetlo cez okno, para z konvičky, voňa čerstvého croissantu. Niektoré veci si treba pozrieť osobne.</p>
+  </div>
+  <div class="gallery fi">
+    <div class="g-cell g-1">
+      <div class="img"></div>
+      <div class="cap"><span><em>Pour over</em><br>Yirgacheffe · 04:00 min</span><span>01 / 04</span></div>
+    </div>
+    <div class="g-cell g-2">
+      <div class="img"></div>
+      <div class="cap"><span><em>Latte art</em></span><span>02 / 04</span></div>
+    </div>
+    <div class="g-cell g-3">
+      <div class="img"></div>
+      <div class="cap"><span><em>Zrná</em><br>House blend</span><span>03 / 04</span></div>
+    </div>
+    <div class="g-cell g-4">
+      <div class="img"></div>
+      <div class="cap"><span><em>Ránne pečivo</em><br>Dodávané pekárňou Antonio</span><span>04 / 04</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section alt" id="o-nas">
+  <div class="sec-head fi">
+    <div>
+      <div class="eyebrow"><span class="num">04 —</span> O nás</div>
+      <h2 class="sec-title" style="margin-top: 1rem">Náš <em>príbeh</em></h2>
+    </div>
+    <p class="sec-aside">Otvorené od leta 2019. Tri stoly, päť stoličiek pri okne, jeden mlynček, ktorý sa stará o všetko ostatné.</p>
+  </div>
+
+  <div class="about">
+    <div class="about-img-wrap fi">
+      <div class="hv-img"></div>
+      <div class="about-img-caption">
+        <span>Mocha · interiér</span>
+        <span>02 / 04</span>
+      </div>
+    </div>
+
+    <div class="about-text fi d1">
+      <div class="eyebrow">— Sedem rokov pomalých rán</div>
+      <h2 style="margin-top: 1.25rem">Kaviareň<br>s <em>dušou</em>.</h2>
+
+      <div class="about-body">
+        <p>Mocha Café sme otvorili v roku 2019 s jediným cieľom — vytvoriť miesto, kde si ľudia môžu na chvíľu vydýchnuť. Bez wifi v rohoch, bez náhlenia, bez zbytočného hluku.</p>
+        <p>Pracujeme s dvomi pražiarňami a meníme zrná každé dva týždne. Naši baristovia majú SCA certifikáciu a vášeň, ktorá sa nedá naučiť — tú dostanete len roky za pultom.</p>
+      </div>
+
+      <blockquote class="about-quote">
+        "Najlepšia káva je tá, ktorú piješ bez toho, aby si pozeral na hodinky."
+        <cite>— Ján, hlavný barista</cite>
+      </blockquote>
+
+      <div class="about-stats">
+        <div>
+          <div class="stat-num">2019</div>
+          <div class="stat-label">Otvorené od</div>
+        </div>
+        <div>
+          <div class="stat-num">14</div>
+          <div class="stat-label">Druhov kávy</div>
+        </div>
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Arabica</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVE -->
+<section class="section dark reserve" id="rezervacia">
+  <div class="reserve-grid">
+    <div class="fi">
+      <div class="eyebrow"><span class="num">05 —</span> Rezervácia</div>
+      <h2 style="margin-top: 1rem">Rezervujte si <em>stôl</em>.</h2>
+      <p class="reserve-lead">Tri stoly pri okne, štyri vzadu. Odporúčame rezervovať aspoň deň vopred — víkendové rána bývajú plné.</p>
+
+      <div style="margin-top: 2.5rem; display: flex; gap: 2.5rem; flex-wrap: wrap;">
+        <div>
+          <div class="eyebrow" style="margin-bottom: .5rem">Telefonicky</div>
+          <div style="font-family: var(--serif); font-size: 1.4rem;">+421 910 123 456</div>
+        </div>
+        <div>
+          <div class="eyebrow" style="margin-bottom: .5rem">Mailom</div>
+          <div style="font-family: var(--serif); font-size: 1.4rem;"><em>rezervacie@mocha.sk</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reserve-card fi d1">
+      <div class="label">Nový dotaz · 30 sek.</div>
+      <div class="field-row">
+        <div class="field"><span>Dátum</span><b>Sobota, 30. máj</b></div>
+        <div class="field"><span>Čas</span><b>10:30 <em>(brunch)</em></b></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><span>Počet hostí</span><b>2 osoby</b></div>
+        <div class="field"><span>Preferencia</span><b>Stôl pri okne</b></div>
+      </div>
+      <div class="field-row full">
+        <div class="field"><span>Meno & telefón</span><b>—</b></div>
+      </div>
+      <div class="cta-row">
+        <button class="btn-gold" onclick="document.getElementById('reservedToast').classList.add('show'); setTimeout(()=>document.getElementById('reservedToast').classList.remove('show'),3200);">Potvrdiť rezerváciu <span class="arr">→</span></button>
+        <span class="terms">Bez poplatkov</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="section" id="info">
+  <div class="sec-head fi">
+    <div>
+      <div class="eyebrow"><span class="num">06 —</span> Návšteva</div>
+      <h2 class="sec-title" style="margin-top: 1rem"><em>Kde</em> nás nájdete</h2>
+    </div>
+    <p class="sec-aside">Centrum Prešova, päť minút pešo od Hlavnej námestia. Vlastná malá terasa na slnečnej strane.</p>
+  </div>
+
+  <div class="info-grid fi">
+    <div class="info-cell">
+      <h4>Otváracie hodiny</h4>
+      <ul class="hours-list" id="hoursList">
+        <li data-day="1"><span class="day">Pondelok</span><span class="time">07:00 — 19:00</span></li>
+        <li data-day="2"><span class="day">Utorok</span><span class="time">07:00 — 19:00</span></li>
+        <li data-day="3"><span class="day">Streda</span><span class="time">07:00 — 19:00</span></li>
+        <li data-day="4"><span class="day">Štvrtok</span><span class="time">07:00 — 19:00</span></li>
+        <li data-day="5"><span class="day">Piatok</span><span class="time">07:00 — 19:00</span></li>
+        <li data-day="6"><span class="day">Sobota</span><span class="time">08:00 — 17:00</span></li>
+        <li data-day="0"><span class="day">Nedeľa</span><span class="time">08:00 — 17:00</span></li>
+      </ul>
+    </div>
+
+    <div class="info-cell">
+      <h4>Kontakt</h4>
+      <ul class="contact-list">
+        <li>
+          <span class="lbl">Adresa</span>
+          <span class="val big">Hlavná 12<br>080 01 Prešov, SK</span>
+        </li>
+        <li>
+          <span class="lbl">Telefón</span>
+          <span class="val">+421 910 123 456</span>
+        </li>
+        <li>
+          <span class="lbl">Email</span>
+          <span class="val">ahoj@mocha.sk</span>
+        </li>
+        <li>
+          <span class="lbl">Instagram</span>
+          <span class="val">@mochacafe.presov</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="info-cell">
+      <h4>Mapa</h4>
+      <div class="find-block">
+        <div class="find-map">
+          <div class="grid-lines"></div>
+          <div class="road1"></div>
+          <div class="road2"></div>
+          <div class="pin"></div>
+          <div class="pin-label">Mocha · Hlavná 12</div>
+        </div>
+        <a href="https://maps.google.com/?q=Hlavn%C3%A1+12+Pre%C5%A1ov" target="_blank" class="btn-ghost" style="font-size:10px;">Otvoriť v mape →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-logo"><em>Mocha</em><br>Café.</div>
+      <p class="foot-tag">Výberová káva, pomalé rána a tichý kút v centre Prešova. Od 2019.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Navigácia</h5>
+      <ul>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#o-nas">O nás</a></li>
+        <li><a href="#rezervacia">Rezervácia</a></li>
+        <li><a href="#info">Návšteva</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Kontakt</h5>
+      <ul>
+        <li>Hlavná 12, Prešov</li>
+        <li>+421 910 123 456</li>
+        <li>ahoj@mocha.sk</li>
+        <li>@mochacafe.presov</li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Otvorené</h5>
+      <ul>
+        <li>Po–Pi · 7:00–19:00</li>
+        <li>So–Ne · 8:00–17:00</li>
+        <li>Sviatky: pozri Instagram</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Mocha Café · Všetky práva vyhradené</span>
+    <span class="center">Pražené s láskou v Prešove</span>
+    <span class="right">Demo web — <a href="mailto:ns.cehelsky@gmail.com">ns.cehelsky@gmail.com</a></span>
+  </div>
+</footer>
+
+<!-- toast -->
+<div id="reservedToast" style="
+  position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--ink); color: var(--bg); padding: 1rem 1.5rem; border-radius: 999px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  z-index: 500; opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s;
+  display: flex; align-items: center; gap: .75rem;
+">
+  <span style="width: 8px; height: 8px; background: var(--gold); border-radius: 50%; display:inline-block;"></span>
+  Rezervácia odoslaná · pozrieme si to
+</div>
+
+<style>
+  #reservedToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+
+<script>
+// fade-in on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+// nav shrink
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+// parallax on hero visual
+const heroImg = document.getElementById('heroImg');
+const heroVisual = document.getElementById('heroVisual');
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      if (heroImg && y < window.innerHeight * 1.2) {
+        heroImg.style.transform = `translateY(${y * 0.18}px) scale(1.05)`;
+      }
+      if (heroVisual && y < window.innerHeight * 1.2) {
+        heroVisual.style.transform = `translateY(${y * -0.05}px)`;
+      }
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
+
+// highlight today's hours
+const today = new Date().getDay();
+const todayLi = document.querySelector(`#hoursList li[data-day="${today}"]`);
+if (todayLi) todayLi.classList.add('today');
+
+// menu tab scroll
+document.querySelectorAll('.menu-tabs li').forEach((tab, i) => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.menu-tabs li').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const cats = document.querySelectorAll('.menu-cat');
+    if (cats[i]) {
+      const rect = cats[i].getBoundingClientRect();
+      window.scrollTo({ top: window.scrollY + rect.top - 120, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
+                                                                                                                                                                                                                                                                             ns-web/project/uploads/cafe.html                                                                    0000644 0000000 0000000 00000040067 15204655751 015361  0                                                                                                    ustar 00                                                                0000000 0000000                                                                                                                                                                        <!DOCTYPE html>
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
