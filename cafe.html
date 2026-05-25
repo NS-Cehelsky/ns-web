@@ -449,7 +449,7 @@ nav.scrolled { padding: .75rem 2.5rem; }
   font-size: 16px; line-height: 1.75; color: var(--ink-2); max-width: 460px;
 }
 .about-body p + p { margin-top: 1.1rem; }
-.about-body p::first-letter {}
+
 .about-quote {
   font-family: var(--serif); font-style: italic; font-weight: 300;
   font-size: 1.6rem; line-height: 1.3; color: var(--ink);
@@ -663,13 +663,13 @@ footer {
 <body>
 
 <!-- DEMO BANNER -->
-<div class="demo">
+<div class="demo" id="demoBanner" style="cursor:pointer" title="Klikni pre skopírovanie emailu">
   <span class="dot"></span>
   <span>Demo · NS web</span>
   <span class="demo-sep">/</span>
   <span class="hide-sm">Objednaj svoju vlastnú stránku</span>
   <span class="demo-sep">→</span>
-  <a href="mailto:ns.cehelsky@gmail.com">ns.cehelsky@gmail.com</a>
+  <a href="#" id="copyEmailBtn" onclick="return false">ns.cehelsky@gmail.com</a>
 </div>
 
 <!-- NAV -->
@@ -1151,11 +1151,11 @@ footer {
   <div class="foot-bottom">
     <span>© 2026 Mocha Café · Všetky práva vyhradené</span>
     <span class="center">Pražené s láskou v Prešove</span>
-    <span class="right">Demo web — <a href="mailto:ns.cehelsky@gmail.com">ns.cehelsky@gmail.com</a></span>
+    <span class="right">Demo web — <a href="#" class="copy-email-link" onclick="copyNSEmail(event)">ns.cehelsky@gmail.com</a></span>
   </div>
 </footer>
 
-<!-- toast -->
+<!-- reservation toast -->
 <div id="reservedToast" style="
   position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(20px);
   background: var(--ink); color: var(--bg); padding: 1rem 1.5rem; border-radius: 999px;
@@ -1167,11 +1167,36 @@ footer {
   Rezervácia odoslaná · pozrieme si to
 </div>
 
+<!-- email copy toast -->
+<div id="copyToast" style="
+  position: fixed; top: 3.5rem; left: 50%; transform: translateX(-50%) translateY(-10px);
+  background: var(--espresso); color: var(--bg); padding: .65rem 1.25rem; border-radius: 999px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  z-index: 500; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s;
+  display: flex; align-items: center; gap: .6rem;
+">
+  <span style="width: 6px; height: 6px; background: var(--gold); border-radius: 50%; display:inline-block;"></span>
+  Email skopírovaný
+</div>
+
 <style>
   #reservedToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  #copyToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  #demoBanner:hover #copyEmailBtn { text-decoration: underline; }
 </style>
 
 <script>
+function copyNSEmail(e) {
+  if (e) e.preventDefault();
+  navigator.clipboard.writeText('ns.cehelsky@gmail.com').then(() => {
+    const t = document.getElementById('copyToast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  });
+}
+
+document.getElementById('demoBanner').addEventListener('click', copyNSEmail);
+
 // fade-in on scroll
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
@@ -1223,291 +1248,5 @@ document.querySelectorAll('.menu-tabs li').forEach((tab, i) => {
 });
 </script>
 
-</body>
-</html>
-                                                                                                                                                                                                                                                                             ns-web/project/uploads/cafe.html                                                                    0000644 0000000 0000000 00000040067 15204655751 015361  0                                                                                                    ustar 00                                                                0000000 0000000                                                                                                                                                                        <!DOCTYPE html>
-<html lang="sk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mocha Café — Prešov</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg:    #f9f5ee;
-  --fg:    #1e1a14;
-  --warm:  #8b5e3c;
-  --muted: #7a6a58;
-  --subtle:#d4c9b8;
-  --surf:  #f1ebe0;
-  --cream: #fdf9f3;
-}
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--fg); font-family: 'DM Sans', sans-serif; font-weight: 300; }
-
-/* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1.1rem 3rem;
-  background: rgba(249,245,238,0.9); backdrop-filter: blur(12px);
-  border-bottom: 0.5px solid var(--subtle);
-}
-.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--fg); text-decoration: none; letter-spacing: .04em; }
-.logo em { font-style: italic; color: var(--warm); }
-.nav-links { display: flex; gap: 2rem; list-style: none; }
-.nav-links a { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
-.nav-links a:hover { color: var(--fg); }
-
-/* HERO */
-.hero {
-  min-height: 100vh;
-  display: grid; grid-template-columns: 1fr 1fr;
-  align-items: center;
-  padding: 7rem 3rem 4rem;
-  gap: 3rem;
-}
-.hero-left { display: flex; flex-direction: column; justify-content: center; }
-.hero-tag { font-size: .7rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--warm); margin-bottom: 1.4rem; }
-.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5rem); font-weight: 300; line-height: 1.08; letter-spacing: -.01em; margin-bottom: 1.5rem; }
-.hero h1 em { font-style: italic; }
-.hero-desc { font-size: .92rem; color: var(--muted); line-height: 1.8; max-width: 400px; margin-bottom: 2.2rem; }
-.hero-info { display: flex; gap: 1.5rem; margin-bottom: 2.2rem; }
-.info-item { font-size: .78rem; color: var(--muted); }
-.info-item strong { display: block; font-size: .7rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--warm); margin-bottom: .2rem; }
-.btn-warm { display: inline-flex; align-items: center; gap: .5rem; padding: .75rem 1.75rem; background: var(--warm); color: #fff; border-radius: 100px; text-decoration: none; font-size: .82rem; font-weight: 500; transition: opacity .2s; }
-.btn-warm:hover { opacity: .85; }
-.hero-visual {
-  height: 520px; border-radius: 20px;
-  background: linear-gradient(160deg, #c9956a 0%, #8b5e3c 40%, #3d2310 100%);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
-}
-.hero-visual::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 30% 40%, rgba(255,220,170,0.18) 0%, transparent 60%);
-}
-.coffee-art {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 7rem; color: rgba(255,255,255,0.12); font-weight: 300;
-  position: absolute; bottom: -1rem; right: 1rem;
-  letter-spacing: -.05em;
-}
-.visual-badge {
-  background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
-  border: 0.5px solid rgba(255,255,255,0.2);
-  border-radius: 12px; padding: 1.25rem 1.75rem;
-  text-align: center; position: relative;
-}
-.badge-main { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: rgba(255,255,255,0.9); }
-.badge-sub { font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: .3rem; }
-
-/* STRIP */
-.strip {
-  background: var(--warm); color: #f9f5ee;
-  padding: .65rem 0; overflow: hidden;
-}
-.strip-inner { display: flex; gap: 3rem; white-space: nowrap; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; animation: marquee 18s linear infinite; }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.strip-inner span::before { content: '—'; margin-right: 1rem; opacity: .4; }
-
-/* SECTION */
-.section { padding: 5rem 3rem; }
-.sec-label { font-size: .68rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--warm); margin-bottom: .8rem; }
-.sec-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; margin-bottom: 2.5rem; }
-.sec-title em { font-style: italic; }
-
-/* MENU */
-.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.5px; background: var(--subtle); border: 0.5px solid var(--subtle); }
-.menu-cat { background: var(--bg); padding: 1.75rem; }
-.menu-cat h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; font-weight: 300; color: var(--warm); margin-bottom: 1.1rem; }
-.menu-items { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
-.menu-item { display: flex; justify-content: space-between; align-items: baseline; font-size: .82rem; }
-.mi-name { color: var(--fg); }
-.mi-price { color: var(--warm); font-weight: 500; font-size: .78rem; }
-.mi-desc { font-size: .72rem; color: var(--muted); display: block; margin-top: .1rem; }
-
-/* ABOUT */
-.about-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-.about-img {
-  height: 420px; border-radius: 16px;
-  background: linear-gradient(140deg, #e8d5c0 0%, #c9956a 60%, #8b5e3c 100%);
-  display: flex; align-items: flex-end; padding: 2rem;
-}
-.about-img-text { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; color: rgba(255,255,255,0.7); }
-.about-text p { font-size: .92rem; color: var(--muted); line-height: 1.85; }
-.about-text p + p { margin-top: 1rem; }
-.about-detail { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 0.5px solid var(--subtle); }
-.ad-item { font-size: .8rem; color: var(--muted); }
-.ad-item strong { display: block; font-size: .68rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--warm); margin-bottom: .2rem; }
-
-/* HOURS + CONTACT */
-.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--subtle); border: 0.5px solid var(--subtle); }
-.info-block { background: var(--bg); padding: 2rem; }
-.info-block h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; font-weight: 300; color: var(--warm); margin-bottom: 1rem; }
-.hours-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
-.hours-list li { display: flex; justify-content: space-between; font-size: .82rem; }
-.hours-list .day { color: var(--muted); }
-.hours-list .time { font-weight: 500; }
-.contact-detail { display: flex; flex-direction: column; gap: .75rem; }
-.cd-item { font-size: .82rem; color: var(--muted); display: flex; gap: .6rem; }
-.cd-icon { color: var(--warm); min-width: 1rem; }
-
-/* FOOTER */
-footer { background: var(--fg); color: var(--bg); padding: 2.5rem 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
-.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; font-style: italic; color: rgba(249,245,238,0.9); }
-.footer-note { font-size: .72rem; color: rgba(249,245,238,0.4); line-height: 1.6; }
-.footer-right { text-align: right; }
-.footer-copy { font-size: .72rem; color: rgba(249,245,238,0.3); }
-.demo-banner { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: .55rem 1.25rem; border-radius: 100px; font-size: .72rem; z-index: 999; white-space: nowrap; opacity: .85; }
-.demo-banner a { color: #c9956a; text-decoration: none; font-weight: 500; }
-
-/* FADE */
-.fi { opacity: 0; transform: translateY(16px); transition: opacity .6s, transform .6s; }
-.fi.in { opacity: 1; transform: none; }
-
-@media (max-width: 700px) {
-  nav { padding: 1rem 1.4rem; } .nav-links { display: none; }
-  .hero { grid-template-columns: 1fr; padding: 6rem 1.4rem 3rem; }
-  .hero-visual { height: 260px; }
-  .section { padding: 3.5rem 1.4rem; }
-  .about-wrap { grid-template-columns: 1fr; }
-  .about-img { height: 260px; }
-  .info-grid { grid-template-columns: 1fr; }
-  footer { grid-template-columns: 1fr; } .footer-right { text-align: left; }
-}
-</style>
-</head>
-<body>
-
-<div class="demo-banner">Demo stránka · NS web · <a href="mailto:ns.cehelsky@gmail.com">Objednaj svoju →</a></div>
-
-<nav>
-  <a class="logo" href="#"><em>Mocha</em> Café</a>
-  <ul class="nav-links">
-    <li><a href="#menu">Menu</a></li>
-    <li><a href="#o-nas">O nás</a></li>
-    <li><a href="#info">Kontakt</a></li>
-  </ul>
-</nav>
-
-<section class="hero">
-  <div class="hero-left">
-    <div class="hero-tag">Kaviareň v Prešove</div>
-    <h1>Káva, ktorá<br><em>spomalí</em><br>váš deň</h1>
-    <p class="hero-desc">Každý šálok u nás je s láskou pripravená výberová káva. Príďte si sadnúť, spomaľte a vychutnajte si chvíľu len pre seba.</p>
-    <div class="hero-info">
-      <div class="info-item"><strong>Otvorené</strong>Po–Pi 7:00–19:00</div>
-      <div class="info-item"><strong>Adresa</strong>Hlavná 12, Prešov</div>
-    </div>
-    <a href="#menu" class="btn-warm">Pozrieť menu →</a>
-  </div>
-  <div class="hero-visual">
-    <div class="visual-badge">
-      <div class="badge-main">Specialty coffee</div>
-      <div class="badge-sub">Výberová káva od pražiarní</div>
-    </div>
-    
-  </div>
-</section>
-
-<div class="strip">
-  <div class="strip-inner">
-    <span>Espresso</span><span>Flat White</span><span>Cappuccino</span><span>Cold Brew</span><span>Matcha Latte</span><span>Čerstvé pečivo</span><span>Specialty Coffee</span><span>Espresso</span><span>Flat White</span><span>Cappuccino</span><span>Cold Brew</span><span>Matcha Latte</span><span>Čerstvé pečivo</span><span>Specialty Coffee</span>
-  </div>
-</div>
-
-<section class="section" id="menu">
-  <div class="fi"><div class="sec-label">Ponuka</div><h2 class="sec-title">Naše <em>menu</em></h2></div>
-  <div class="menu-grid fi">
-    <div class="menu-cat">
-      <h3>Horúce nápoje</h3>
-      <ul class="menu-items">
-        <li class="menu-item"><span><span class="mi-name">Espresso</span><span class="mi-desc">Dvojitý shot, 100% arabica</span></span><span class="mi-price">2,20 €</span></li>
-        <li class="menu-item"><span><span class="mi-name">Cappuccino</span><span class="mi-desc">Espresso, mliečna pena</span></span><span class="mi-price">3,00 €</span></li>
-        <li class="menu-item"><span><span class="mi-name">Flat White</span><span class="mi-desc">Silné espresso, hodvábne mlieko</span></span><span class="mi-price">3,20 €</span></li>
-        <li class="menu-item"><span><span class="mi-name">Matcha Latte</span><span class="mi-desc">Japonská matcha, ovsené mlieko</span></span><span class="mi-price">3,80 €</span></li>
-      </ul>
-    </div>
-    <div class="menu-cat">
-      <h3>Studené nápoje</h3>
-      <ul class="menu-items">
-        <li class="menu-item"><span><span class="mi-name">Cold Brew</span><span class="mi-desc">18 hodín lúhovanie</span></span><span class="mi-price">3,50 €</span></li>
-        <li class="menu-item"><span><span class="mi-name">Iced Latte</span><span class="mi-desc">Espresso, ľad, mlieko</span></span><span class="mi-price">3,40 €</span></li>
-        <li class="menu-item"><span><span class="mi-name">Limonáda</span><span class="mi-desc">Domáca, sezónne príchute</span></span><span class="mi-price">2,80 €</span></li>
-        <li class="menu-item"><span><span class="mi-name">Freshly squeezed</span><span class="mi-desc">Pomaranč alebo grep</span></span><span class="mi-price">3,20 €</span></li>
-      </ul>
-    </div>
-    <div class="menu-cat">
-      <h3>Jedlo</h3>
-      <ul class="menu-items">
-        <li class="menu-item"><span><span class="mi-name">Croissant</span><span class="mi-desc">Maslo, čokoláda alebo mandle</span></span><span class="mi-price">2,50 €</span></li>
-        <li class="menu-item"><span><span class="mi-name">Avocado Toast</span><span class="mi-desc">Celozrnný chlieb, vajce</span></span><span class="mi-price">5,90 €</span></li>
-        <li class="menu-item"><span><span class="mi-name">Ovesná kaša</span><span class="mi-desc">Sezónne ovocie, med</span></span><span class="mi-price">4,50 €</span></li>
-        <li class="menu-item"><span><span class="mi-name">Cheesecake</span><span class="mi-desc">Domáci, denne čerstvý</span></span><span class="mi-price">3,80 €</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="o-nas" style="background: var(--surf);">
-  <div class="about-wrap">
-    <div class="about-img fi">
-      <div class="about-img-text">"Každá káva je malý rituál."</div>
-    </div>
-    <div class="about-text fi">
-      <div class="sec-label">O nás</div>
-      <h2 class="sec-title">Kaviareň<br>s <em>dušou</em></h2>
-      <p>Mocha Café sme otvorili v roku 2019 s jedným cieľom — vytvoriť miesto, kde si ľudia môžu na chvíľu vydýchnuť od každodenného ruchu. Veríme, že dobrá káva a príjemné prostredie dokážu zmeniť celý deň.</p>
-      <p>Každý šálok pripravujeme zo starostlivo vybraných zŕn od slovenských a európskych pražiarní. Naši baristovia absolvovali certifikované školenia a ich vášeň pre kávu je v každom dúšku cítiť.</p>
-      <div class="about-detail">
-        <div class="ad-item"><strong>Otvorené od</strong>2019</div>
-        <div class="ad-item"><strong>Baristi</strong>Certifikovaní SCA</div>
-        <div class="ad-item"><strong>Káva</strong>100% Arabica</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="info">
-  <div class="fi"><div class="sec-label">Informácie</div><h2 class="sec-title"><em>Kde</em> nás nájdete</h2></div>
-  <div class="info-grid fi">
-    <div class="info-block">
-      <h3>Otváracie hodiny</h3>
-      <ul class="hours-list">
-        <li><span class="day">Pondelok – Piatok</span><span class="time">7:00 – 19:00</span></li>
-        <li><span class="day">Sobota</span><span class="time">8:00 – 18:00</span></li>
-        <li><span class="day">Nedeľa</span><span class="time">9:00 – 16:00</span></li>
-      </ul>
-    </div>
-    <div class="info-block">
-      <h3>Kontakt</h3>
-      <div class="contact-detail">
-        <div class="cd-item"><span class="cd-icon"><svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" fill="currentColor" opacity=".5"/></svg></span><span>Hlavná 12, 080 01 Prešov</span></div>
-        <div class="cd-item"><span class="cd-icon"><svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" fill="currentColor" opacity=".5"/></svg></span><span>mocha@cafe.sk</span></div>
-        <div class="cd-item"><span class="cd-icon"><svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" fill="currentColor" opacity=".5"/></svg></span><span>0910 123 456</span></div>
-        <div class="cd-item"><span class="cd-icon"><svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" fill="currentColor" opacity=".5"/></svg></span><span>@mochacafe.presov</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div>
-    <div class="footer-logo">Mocha Café</div>
-    <p class="footer-note" style="margin-top:.5rem">Výberová káva a domáce pečivo<br>Prešov, Slovensko</p>
-  </div>
-  <div class="footer-right">
-    <p class="footer-copy">© 2026 Mocha Café<br>Web: <a href="mailto:ns.cehelsky@gmail.com" style="color:rgba(249,245,238,.5);text-decoration:none">NS web</a></p>
-  </div>
-</footer>
-
-<script>
-const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}}),{threshold:0.08});
-document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
-</script>
 </body>
 </html>
